@@ -1,0 +1,6 @@
+{
+  "name": "Praneetha - Primitive Fire & Ancient Clay",
+  "description": "Artisanal checkout and order confirmation experience for Praneetha Primitive Fire & Ancient Clay Dining.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

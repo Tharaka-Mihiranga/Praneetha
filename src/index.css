@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-serif: 'Cinzel', 'Cormorant Garamond', Georgia, serif;
+    --font-editorial: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  body {
+    background-color: #0d0b09;
+    color: #e5ded4;
+    font-family: var(--font-sans);
+  }
+}
+
+.font-cinzel {
+  font-family: 'Cinzel', serif;
+}
+
+.font-editorial {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-sans-clean {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+/* Ember fire glow effects */
+.glow-amber {
+  box-shadow: 0 0 35px -5px rgba(224, 102, 22, 0.35);
+}
+
+.glow-amber-subtle {
+  box-shadow: 0 0 20px -3px rgba(217, 119, 6, 0.2);
+}
+
+.hearth-border {
+  border-color: rgba(217, 119, 6, 0.2);
+}
+
+.hearth-gradient {
+  background: radial-gradient(circle at 50% 0%, rgba(224, 102, 22, 0.12) 0%, rgba(13, 11, 9, 0) 70%);
+}
+
+/* Custom scrollbar for dark aesthetic */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0d0b09;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a221b;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d97706;
+}
+
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #111111 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+}
