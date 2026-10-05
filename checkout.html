@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Praneetha - Checkout Page · Primitive Fire & Ancient Clay</title>
+  <meta name="description" content="Artisanal Hearth Table Reservation & Claypot Feast Checkout for Praneetha.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN (Works directly with VS Code Live Server!) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            editorial: ['"Cormorant Garamond"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            hearth: {
+              black: '#0d0b09',
+              dark: '#14110e',
+              surface: '#1c1612',
+              border: '#2b221a',
+              amber: '#d97706',
+              fire: '#ea580c',
+              cream: '#f5ede3',
+              muted: '#9c9285',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #0d0b09;
+      color: #e5ded4;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-cinzel { font-family: 'Cinzel', serif; }
+    .font-editorial { font-family: 'Cormorant Garamond', Georgia, serif; }
+    
+    /* Glow animations and ember accents */
+    .glow-orange {
+      box-shadow: 0 0 25px rgba(234, 112, 27, 0.35);
+    }
+    .glow-orange:hover {
+      box-shadow: 0 0 35px rgba(234, 112, 27, 0.6);
+    }
+    input, select, textarea {
+      accent-color: #ea580c;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-[#ea580c]/30 selection:text-[#fbe0c9]">
+
+  <!-- TOP VIEW SWITCHER: Works directly in Live Server -->
+  <div class="bg-[#14100c] border-b border-[#2a221a] py-2 px-4 z-50">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div class="flex items-center gap-2">
+        <span class="text-[#8e8578] uppercase tracking-wider font-medium text-[11px]">
+          Pages Switcher:
+        </span>
+        <div class="inline-flex rounded-md p-0.5 bg-[#1e1711] border border-[#332920]">
+          <a href="checkout.html" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-semibold bg-gradient-to-r from-[#d95b12] to-[#ea701b] text-white shadow-sm">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+            <span>1. Checkout Page</span>
+          </a>
+          <a href="order-confirmation.html" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium text-[#9e9488] hover:text-[#f7ede2] transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>2. Order Confirmation</span>
+          </a>
+        </div>
+      </div>
+      <div class="text-[11px] text-[#8c8275] hidden sm:block">
+        VS Code Live Server Ready · Native HTML & JavaScript
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION BAR (Exact Match to Reference Screenshot) -->
+  <header class="sticky top-0 z-40 bg-[#0d0b09]/95 backdrop-blur-md border-b border-[#261f18]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo & Wordmark -->
+        <a href="checkout.html" class="flex items-center gap-3 group">
+          <div class="relative w-8 h-8 flex items-center justify-center">
+            <svg class="w-6 h-6 text-[#f59e0b] fill-[#ea580c] transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24">
+              <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+            </svg>
+          </div>
+          <span class="font-cinzel text-xl sm:text-2xl font-bold tracking-[0.22em] text-[#f7ede2] group-hover:text-amber-400 transition-colors">
+            PRANEETHA
+          </span>
+        </a>
+
+        <!-- Middle Navigation Links -->
+        <nav class="hidden md:flex items-center space-x-8 text-xs font-semibold tracking-[0.16em] uppercase">
+          <a href="checkout.html" class="text-amber-400 py-1 relative">
+            HOME
+            <span class="absolute bottom-0 left-0 right-0 h-[2px] bg-amber-500 rounded-full"></span>
+          </a>
+          <span class="text-[#9c9388] hover:text-[#f7ede2] cursor-pointer transition-colors">ABOUT</span>
+          <span class="text-[#9c9388] hover:text-[#f7ede2] cursor-pointer transition-colors">CHEFS</span>
+          <span class="text-[#9c9388] hover:text-[#f7ede2] cursor-pointer transition-colors">MENU</span>
+          <span class="text-[#9c9388] hover:text-[#f7ede2] cursor-pointer transition-colors">CONTACT</span>
+        </nav>
+
+        <!-- Action Button & Avatar (Screenshot Match) -->
+        <div class="flex items-center gap-3 sm:gap-4">
+          <a href="#checkout-form" class="bg-gradient-to-r from-[#d95b12] to-[#ea701b] hover:from-[#c24c0a] hover:to-[#d85e0e] text-white font-medium text-xs tracking-[0.14em] uppercase px-5 py-2.5 rounded-sm glow-orange transition-all flex items-center gap-2">
+            <span>RESERVE TABLE</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+          <div class="w-9 h-9 rounded-full bg-[#fae3d1] text-[#241c15] flex items-center justify-center font-semibold text-xs shadow-inner cursor-pointer" title="Binodya Senanayake">
+            <svg class="w-4 h-4 text-[#4a3b2c]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION WITH SCREENSHOT'S 3 PILLARS -->
+  <section class="relative overflow-hidden border-b border-[#251e18] bg-[#0d0b09]">
+    <div class="absolute inset-0 opacity-20 bg-cover bg-center pointer-events-none mix-blend-luminosity filter blur-[1px]" style="background-image: url('./src/assets/images/hearth_clay_pots_1791214689063.jpg');"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-[#0d0b09]/80 via-[#0d0b09]/95 to-[#0d0b09] pointer-events-none"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-14 text-center sm:text-left">
+      <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#d97706] mb-3">
+        <svg class="w-3.5 h-3.5 fill-[#ea580c] text-[#f59e0b]" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+        <span>Customer Checkout · Binodya</span>
+      </div>
+
+      <h1 class="font-cinzel text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#fbf7f0] leading-[1.15]">
+        PRIMITIVE FIRE. <br class="hidden sm:inline">
+        <span class="font-editorial italic font-normal text-[#e28243]">ANCIENT CLAY.</span> <br>
+        UNBROKEN TASTE.
+      </h1>
+
+      <p class="mt-4 text-sm sm:text-base text-[#a3998e] max-w-2xl font-light leading-relaxed">
+        Complete your table reservation or curate your slow-mineralized claypot feast box. Every curry is cooked for 12 hours over Matale cured timber.
+      </p>
+
+      <!-- 3 CARDS DIRECTLY FROM SCREENSHOT -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10">
+        <div class="bg-[#15120f]/80 backdrop-blur-md border border-[#2b221a] p-5 rounded-sm hover:border-[#d97706]/40 transition-all">
+          <span class="text-[11px] font-mono tracking-wider text-[#d97706] block mb-1">01 / PRIMORDIAL FUELS</span>
+          <h3 class="font-cinzel text-base font-semibold text-[#f5ede3] mb-1.5">Wild Cinnamon & Tamarind Timber</h3>
+          <p class="text-xs text-[#9c9285] leading-relaxed">Cured woods gathered from Matale groves deliver resinous smoke notes and steady, incandescent thermal velocity.</p>
+        </div>
+        <div class="bg-[#15120f]/80 backdrop-blur-md border border-[#2b221a] p-5 rounded-sm hover:border-[#d97706]/40 transition-all">
+          <span class="text-[11px] font-mono tracking-wider text-[#d97706] block mb-1">02 / UNGLAZED EARTH</span>
+          <h3 class="font-cinzel text-base font-semibold text-[#f5ede3] mb-1.5">Kelani River Terracotta Pots</h3>
+          <p class="text-xs text-[#9c9285] leading-relaxed">Porous native river silts mineralize curries over twelve hours, balancing sharp sun-dried chilis with natural earth alkali.</p>
+        </div>
+        <div class="bg-[#15120f]/80 backdrop-blur-md border border-[#2b221a] p-5 rounded-sm hover:border-[#d97706]/40 transition-all">
+          <span class="text-[11px] font-mono tracking-wider text-[#d97706] block mb-1">03 / NIGHTLY RITUAL</span>
+          <h3 class="font-cinzel text-base font-semibold text-[#f5ede3] mb-1.5">Fourteen Seated Guests Per Hearth</h3>
+          <p class="text-xs text-[#9c9285] leading-relaxed">Two seating cycles strictly synchronized with twilight embers and the late-night southern monsoon breeze.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CHECKOUT SECTION -->
+  <main id="checkout-form" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1 w-full">
+    <form id="orderForm" class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+      
+      <!-- LEFT COLUMN: GUEST & SETTLEMENT DETAILS (7 Cols) -->
+      <div class="lg:col-span-7 space-y-8">
+        
+        <!-- 01. Experience Ritual -->
+        <div class="bg-[#14110e] border border-[#28211a] rounded-sm p-6 shadow-xl">
+          <div class="border-b border-[#261f18] pb-4 mb-6">
+            <h2 class="font-cinzel text-lg font-bold text-[#f7efe4] flex items-center gap-2">
+              <span class="text-amber-500 font-mono text-sm">01.</span>
+              Select Experience Ritual
+            </h2>
+            <p class="text-xs text-[#9c9285] mt-0.5">Choose between an in-person hearth seating or curated home delivery.</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <label class="p-4 rounded-sm border border-[#ea580c] bg-[#241a13] cursor-pointer flex flex-col justify-between" id="label-dinein">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-cinzel text-sm font-semibold text-[#f5ede3]">Hearth Dining (In-Person)</span>
+                <input type="radio" name="experienceType" value="dine_in" checked class="text-amber-500" onchange="toggleExperience()">
+              </div>
+              <p class="text-xs text-[#9e9488]">Intimate counter seating facing the active woodfire hearth and clay cooking pots.</p>
+              <span class="text-[10px] text-amber-500 font-medium mt-2">✓ Reserved seat at counter</span>
+            </label>
+
+            <label class="p-4 rounded-sm border border-[#2a221b] bg-[#171310] cursor-pointer flex flex-col justify-between" id="label-box">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-cinzel text-sm font-semibold text-[#f5ede3]">Claypot Feast Box (Delivery)</span>
+                <input type="radio" name="experienceType" value="heirloom_box" class="text-amber-500" onchange="toggleExperience()">
+              </div>
+              <p class="text-xs text-[#9e9488]">Delivered warm in sealed native terracotta vessels with charcoal reheating stones.</p>
+              <span class="text-[10px] text-amber-500 font-medium mt-2">✓ Keepsake clay pots included</span>
+            </label>
+          </div>
+
+          <!-- Date & Seating cycle -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6 pt-5 border-t border-[#241c16]">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-[#b3a89a] mb-2">Date</label>
+              <select id="resDate" class="w-full bg-[#1c1612] border border-[#33281f] text-xs text-[#f5ede3] p-2.5 rounded-sm focus:outline-none focus:border-amber-500">
+                <option value="Tonight, October 5">Tonight, October 5</option>
+                <option value="Tomorrow, October 6">Tomorrow, October 6</option>
+                <option value="Wednesday, October 7">Wednesday, October 7</option>
+                <option value="Thursday, October 8">Thursday, October 8</option>
+                <option value="Friday, October 9">Friday, October 9</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-[#b3a89a] mb-2">Seating Cycle</label>
+              <select id="resTime" class="w-full bg-[#1c1612] border border-[#33281f] text-xs text-[#f5ede3] p-2.5 rounded-sm focus:outline-none focus:border-amber-500">
+                <option value="Twilight Embers Seating (19:30 - 22:00)">Twilight Embers (19:30 - 22:00)</option>
+                <option value="Night Breeze Seating (22:15 - 00:30)">Night Breeze (22:15 - 00:30)</option>
+                <option value="Sunset Matale Tasting (17:00 - 19:15)">Sunset Tasting (17:00 - 19:15)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-[#b3a89a] mb-2">Seated Guests</label>
+              <div class="flex items-center border border-[#33281f] bg-[#1c1612] rounded-sm">
+                <button type="button" onclick="adjustGuests(-1)" class="px-3 py-2 text-[#a3988b] hover:text-white">-</button>
+                <span id="guestCountDisplay" class="flex-1 text-center text-xs font-semibold text-[#f7efe4] tabular-nums">2 Guests</span>
+                <button type="button" onclick="adjustGuests(1)" class="px-3 py-2 text-[#a3988b] hover:text-white">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 02. Guest Information -->
+        <div class="bg-[#14110e] border border-[#28211a] rounded-sm p-6 shadow-xl">
+          <div class="border-b border-[#261f18] pb-4 mb-6">
+            <h2 class="font-cinzel text-lg font-bold text-[#f7efe4] flex items-center gap-2">
+              <span class="text-amber-500 font-mono text-sm">02.</span>
+              Guest & Hearth Protocol
+            </h2>
+            <p class="text-xs text-[#9c9285] mt-0.5">Your reservation details and personalized dining preferences.</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-[#b3a89a] mb-2">Full Name *</label>
+              <input type="text" id="guestName" required value="Binodya Senanayake" class="w-full bg-[#1c1612] border border-[#33281f] text-xs text-[#f5ede3] p-3 rounded-sm focus:outline-none focus:border-amber-500">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-[#b3a89a] mb-2">Email Address *</label>
+              <input type="email" id="guestEmail" required value="binodya.s@luxurycuisine.lk" class="w-full bg-[#1c1612] border border-[#33281f] text-xs text-[#f5ede3] p-3 rounded-sm focus:outline-none focus:border-amber-500">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-[#b3a89a] mb-2">Mobile Phone *</label>
+              <input type="tel" id="guestPhone" required value="+94 77 982 4510" class="w-full bg-[#1c1612] border border-[#33281f] text-xs text-[#f5ede3] p-3 rounded-sm focus:outline-none focus:border-amber-500">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-[#b3a89a] mb-2">Dietary Notes</label>
+              <input type="text" id="guestDietary" value="Mild Ceylon spice, no shellfish" class="w-full bg-[#1c1612] border border-[#33281f] text-xs text-[#f5ede3] p-3 rounded-sm focus:outline-none focus:border-amber-500">
+            </div>
+          </div>
+
+          <div id="deliveryFields" class="hidden mt-4 pt-4 border-t border-[#261f18]">
+            <label class="block text-xs font-semibold uppercase tracking-wider text-amber-500 mb-2">Delivery Address (Colombo District)</label>
+            <input type="text" id="deliveryAddress" value="42 Cinnamon Gardens Boulevard, Colombo 07" class="w-full bg-[#1c1612] border border-[#33281f] text-xs text-[#f5ede3] p-3 rounded-sm focus:outline-none focus:border-amber-500">
+          </div>
+
+          <div class="mt-4">
+            <label class="block text-xs font-semibold uppercase tracking-wider text-[#b3a89a] mb-2">Special Hearth Arrangements</label>
+            <textarea id="guestNotes" rows="2" class="w-full bg-[#1c1612] border border-[#33281f] text-xs text-[#f5ede3] p-3 rounded-sm focus:outline-none focus:border-amber-500">Anniversary celebration. Please reserve counter seats directly observing central woodfire hearth.</textarea>
+          </div>
+        </div>
+
+        <!-- 03. Payment & Settlement -->
+        <div class="bg-[#14110e] border border-[#28211a] rounded-sm p-6 shadow-xl">
+          <div class="flex items-center justify-between border-b border-[#261f18] pb-4 mb-6">
+            <div>
+              <h2 class="font-cinzel text-lg font-bold text-[#f7efe4] flex items-center gap-2">
+                <span class="text-amber-500 font-mono text-sm">03.</span>
+                Payment & Settlement
+              </h2>
+              <p class="text-xs text-[#9c9285] mt-0.5">Encrypted 256-bit TLS connection.</p>
+            </div>
+            <span class="text-xs text-emerald-400 font-medium">🔒 Secure SSL</span>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2.5 mb-6">
+            <button type="button" onclick="setPayment('card')" id="pay-btn-card" class="p-3 rounded-sm border border-[#ea580c] bg-[#241a13] text-[#f7efe4] text-center">
+              <span class="text-xs font-semibold block">Credit Card</span>
+            </button>
+            <button type="button" onclick="setPayment('apple_pay')" id="pay-btn-apple" class="p-3 rounded-sm border border-[#2a221b] bg-[#171310] text-[#8e8477] text-center">
+              <span class="text-xs font-semibold block">Apple / Google</span>
+            </button>
+            <button type="button" onclick="setPayment('hearthside')" id="pay-btn-hearth" class="p-3 rounded-sm border border-[#2a221b] bg-[#171310] text-[#8e8477] text-center">
+              <span class="text-xs font-semibold block">At Hearth</span>
+            </button>
+          </div>
+
+          <!-- Card inputs -->
+          <div id="cardSection" class="space-y-4">
+            <div class="p-5 rounded-md bg-gradient-to-br from-[#241b14] via-[#1c1510] to-[#120e0a] border border-amber-900/40 relative mb-4">
+              <div class="flex justify-between items-center mb-5">
+                <span class="font-cinzel text-xs text-amber-400/80 uppercase font-semibold">PRANEETHA HEARTH CARD</span>
+                <span class="text-[10px] font-mono text-amber-300 border border-amber-500/40 px-1.5 py-0.5 rounded">CHIP</span>
+              </div>
+              <div class="font-mono text-sm tracking-widest text-[#f5ede3] mb-4">4242 •••• •••• 4242</div>
+              <div class="flex justify-between text-[11px] text-[#a3978a]">
+                <span>BINODYA SENANAYAKE</span>
+                <span>EXP: 08/28</span>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-[#b3a89a] mb-2">Card Number</label>
+              <input type="text" value="4242 4242 4242 4242" class="w-full bg-[#1c1612] border border-[#33281f] text-xs text-[#f5ede3] p-3 rounded-sm font-mono">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-[#b3a89a] mb-2">Expiry</label>
+                <input type="text" value="08/28" class="w-full bg-[#1c1612] border border-[#33281f] text-xs text-[#f5ede3] p-3 rounded-sm font-mono">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-[#b3a89a] mb-2">CVV</label>
+                <input type="text" value="849" class="w-full bg-[#1c1612] border border-[#33281f] text-xs text-[#f5ede3] p-3 rounded-sm font-mono">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: ORDER SUMMARY (5 Cols) -->
+      <div class="lg:col-span-5 sticky top-28 space-y-6">
+        <div class="bg-[#14110e] border border-[#2b221a] rounded-sm p-6 shadow-2xl">
+          <div class="flex items-center justify-between border-b border-[#261f18] pb-4 mb-4">
+            <div>
+              <h2 class="font-cinzel text-lg font-bold text-[#f7efe4]">Hearth Order Summary</h2>
+              <span id="itemCountDisplay" class="text-xs text-[#9c9285]">3 Items Selected</span>
+            </div>
+            <span class="text-xs font-mono text-amber-500">RESERVATION READY</span>
+          </div>
+
+          <!-- Items list container -->
+          <div id="itemsContainer" class="divide-y divide-[#231a14] space-y-3">
+            <!-- Dynamically populated by JS -->
+          </div>
+
+          <!-- Promo Code -->
+          <div class="mt-5 pt-4 border-t border-[#261f18]">
+            <div class="flex gap-2">
+              <input type="text" id="promoCode" value="HEARTH10" class="flex-1 bg-[#1c1612] border border-[#33281f] text-xs text-[#f5ede3] px-3 py-2 rounded-sm uppercase tracking-wider font-mono">
+              <button type="button" onclick="applyPromo()" class="px-4 py-2 bg-[#2a2017] hover:bg-[#382b20] border border-[#423326] text-xs font-semibold text-[#f5ede3] rounded-sm">Apply</button>
+            </div>
+            <p id="promoMessage" class="text-[11px] text-emerald-400 mt-1.5 font-medium">✓ Voucher 'HEARTH10' applied (10% off subtotal)</p>
+          </div>
+
+          <!-- Financial Breakdown -->
+          <div class="mt-5 pt-4 border-t border-[#261f18] space-y-2 text-xs">
+            <div class="flex justify-between text-[#a3988b]">
+              <span>Items Subtotal</span>
+              <span id="subtotalDisplay" class="font-mono text-[#e5ded4]">$391.00</span>
+            </div>
+            <div class="flex justify-between text-[#a3988b]">
+              <span>Hearth Firewood & Culinary Craft (10%)</span>
+              <span id="serviceFeeDisplay" class="font-mono text-[#e5ded4]">$39.10</span>
+            </div>
+            <div class="flex justify-between text-[#a3988b]">
+              <span>Kelani River Pottery Preservation (5%)</span>
+              <span id="heritageLevyDisplay" class="font-mono text-[#e5ded4]">$19.55</span>
+            </div>
+            <div class="flex justify-between text-emerald-400 font-medium">
+              <span>Voucher Discount</span>
+              <span id="discountDisplay" class="font-mono">-$39.10</span>
+            </div>
+            <div class="pt-3 border-t border-[#261f18] flex justify-between items-baseline">
+              <span class="font-cinzel text-base font-bold text-[#f7efe4]">Total Amount</span>
+              <span id="totalDisplay" class="font-cinzel text-2xl font-bold text-amber-400 tabular-nums">$410.55</span>
+            </div>
+          </div>
+
+          <!-- Submit Order CTA -->
+          <button type="submit" class="w-full mt-6 bg-gradient-to-r from-[#d95b12] to-[#ea701b] hover:from-[#c24c0a] hover:to-[#d85e0e] text-white font-medium text-xs tracking-[0.16em] uppercase py-3.5 px-6 rounded-sm glow-orange transition-all flex items-center justify-center gap-2">
+            <span>CONFIRM RESERVATION & PLACE ORDER</span>
+            <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+          </button>
+
+          <p class="mt-4 text-center text-[11px] text-[#7a6f63]">
+            100% Authentic Woodfire Hearth Experience Guaranteed
+          </p>
+        </div>
+      </div>
+
+    </form>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#090806] border-t border-[#1e1813] py-10 px-4 text-center sm:text-left mt-auto">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#8c8172]">
+      <div class="flex items-center gap-2">
+        <span class="font-cinzel text-sm font-bold text-[#f7efe4]">PRANEETHA</span>
+        <span class="text-[#594e43]">· Primitive Fire · Ancient Clay · Unbroken Taste</span>
+      </div>
+      <div class="flex gap-4">
+        <a href="checkout.html" class="hover:text-amber-400">Checkout</a>
+        <a href="order-confirmation.html" class="hover:text-amber-400">Order Confirmation</a>
+        <span>Colombo Flagship Hearth</span>
+      </div>
+      <div class="text-[11px] text-[#594e43]">© 2026 Praneetha Hearth & Clay.</div>
+    </div>
+  </footer>
+
+  <!-- STANDALONE JAVASCRIPT: Handles cart, calculations, and redirection -->
+  <script>
+    let guestCount = 2;
+    let selectedPayment = 'card';
+    let discountPercent = 0.10;
+
+    let items = [
+      {
+        id: '1',
+        name: 'The Primordial Hearth Degustation',
+        kicker: '01 / Matale Cured Wild Timber',
+        price: 145.00,
+        qty: 2,
+        img: './src/assets/images/terracotta_feast_dish_1791214706393.jpg'
+      },
+      {
+        id: '2',
+        name: 'Wild Cinnamon & Smoked Tamarind Infusion',
+        kicker: '02 / Hearth-Brewed Elixir',
+        price: 28.00,
+        qty: 2,
+        img: './src/assets/images/woodfire_cinnamon_infusion_1791214721224.jpg'
+      },
+      {
+        id: '3',
+        name: 'Artisan Kelani Terracotta Hearth Pot',
+        kicker: '03 / Handcrafted Keepsake',
+        price: 45.00,
+        qty: 1,
+        img: './src/assets/images/hearth_clay_pots_1791214689063.jpg'
+      }
+    ];
+
+    function renderItems() {
+      const container = document.getElementById('itemsContainer');
+      container.innerHTML = '';
+      let totalQty = 0;
+
+      items.forEach(item => {
+        totalQty += item.qty;
+        const div = document.createElement('div');
+        div.className = 'py-3 flex gap-3 items-center justify-between text-xs';
+        div.innerHTML = `
+          <div class="flex items-center gap-3">
+            <img src="${item.img}" alt="${item.name}" class="w-12 h-12 object-cover rounded border border-[#2e241c]">
+            <div>
+              <span class="text-[10px] font-mono text-[#d97706] block">${item.kicker}</span>
+              <h4 class="font-cinzel font-medium text-[#f5ede3]">${item.name}</h4>
+              <span class="text-[#8e8376]">$${item.price.toFixed(2)} each</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="flex items-center border border-[#33281f] bg-[#1c1612] rounded">
+              <button type="button" onclick="changeQty('${item.id}', -1)" class="px-2 py-0.5 text-[#a3988b] hover:text-white">-</button>
+              <span class="px-2 font-mono text-[#f5ede3]">${item.qty}</span>
+              <button type="button" onclick="changeQty('${item.id}', 1)" class="px-2 py-0.5 text-[#a3988b] hover:text-white">+</button>
+            </div>
+            <span class="font-mono text-[#e5ded4] font-semibold w-16 text-right">$${(item.price * item.qty).toFixed(2)}</span>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+
+      document.getElementById('itemCountDisplay').innerText = `${totalQty} Items Selected`;
+      calculateTotals();
+    }
+
+    function changeQty(id, delta) {
+      items = items.map(item => {
+        if (item.id === id) {
+          const newQty = Math.max(1, item.qty + delta);
+          return { ...item, qty: newQty };
+        }
+        return item;
+      });
+      renderItems();
+    }
+
+    function calculateTotals() {
+      const subtotal = items.reduce((acc, item) => acc + (item.price * item.qty), 0);
+      const service = subtotal * 0.10;
+      const levy = subtotal * 0.05;
+      const discount = subtotal * discountPercent;
+      const total = subtotal + service + levy - discount;
+
+      document.getElementById('subtotalDisplay').innerText = `$${subtotal.toFixed(2)}`;
+      document.getElementById('serviceFeeDisplay').innerText = `$${service.toFixed(2)}`;
+      document.getElementById('heritageLevyDisplay').innerText = `$${levy.toFixed(2)}`;
+      document.getElementById('discountDisplay').innerText = `-$${discount.toFixed(2)}`;
+      document.getElementById('totalDisplay').innerText = `$${total.toFixed(2)}`;
+    }
+
+    function adjustGuests(delta) {
+      guestCount = Math.max(1, Math.min(14, guestCount + delta));
+      document.getElementById('guestCountDisplay').innerText = `${guestCount} ${guestCount === 1 ? 'Guest' : 'Guests'}`;
+    }
+
+    function toggleExperience() {
+      const isBox = document.querySelector('input[name="experienceType"]:checked').value === 'heirloom_box';
+      document.getElementById('deliveryFields').classList.toggle('hidden', !isBox);
+      
+      const labelDine = document.getElementById('label-dinein');
+      const labelBox = document.getElementById('label-box');
+      if (isBox) {
+        labelBox.className = 'p-4 rounded-sm border border-[#ea580c] bg-[#241a13] cursor-pointer flex flex-col justify-between';
+        labelDine.className = 'p-4 rounded-sm border border-[#2a221b] bg-[#171310] cursor-pointer flex flex-col justify-between';
+      } else {
+        labelDine.className = 'p-4 rounded-sm border border-[#ea580c] bg-[#241a13] cursor-pointer flex flex-col justify-between';
+        labelBox.className = 'p-4 rounded-sm border border-[#2a221b] bg-[#171310] cursor-pointer flex flex-col justify-between';
+      }
+    }
+
+    function setPayment(method) {
+      selectedPayment = method;
+      ['card', 'apple', 'hearth'].forEach(m => {
+        const btn = document.getElementById(`pay-btn-${m}`);
+        if ((method === 'card' && m === 'card') || (method === 'apple_pay' && m === 'apple') || (method === 'hearthside' && m === 'hearth')) {
+          btn.className = 'p-3 rounded-sm border border-[#ea580c] bg-[#241a13] text-[#f7efe4] text-center';
+        } else {
+          btn.className = 'p-3 rounded-sm border border-[#2a221b] bg-[#171310] text-[#8e8477] text-center';
+        }
+      });
+      document.getElementById('cardSection').style.display = method === 'card' ? 'block' : 'none';
+    }
+
+    function applyPromo() {
+      const code = document.getElementById('promoCode').value.trim().toUpperCase();
+      const msg = document.getElementById('promoMessage');
+      if (code === 'HEARTH10') {
+        discountPercent = 0.10;
+        msg.className = 'text-[11px] text-emerald-400 mt-1.5 font-medium';
+        msg.innerText = "✓ Voucher 'HEARTH10' applied (10% off subtotal)";
+      } else if (code === 'PRANEETHA') {
+        discountPercent = 0.15;
+        msg.className = 'text-[11px] text-emerald-400 mt-1.5 font-medium';
+        msg.innerText = "✓ VIP Voucher 'PRANEETHA' applied (15% off subtotal)";
+      } else {
+        discountPercent = 0;
+        msg.className = 'text-[11px] text-rose-400 mt-1.5';
+        msg.innerText = 'Invalid voucher code. Try "HEARTH10"';
+      }
+      calculateTotals();
+    }
+
+    // Handle Form Submission -> Save order and navigate to order-confirmation.html
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const subtotal = items.reduce((acc, item) => acc + (item.price * item.qty), 0);
+      const service = subtotal * 0.10;
+      const levy = subtotal * 0.05;
+      const discount = subtotal * discountPercent;
+      const total = subtotal + service + levy - discount;
+
+      const orderData = {
+        orderId: 'PRN-' + Math.floor(1000 + Math.random() * 9000),
+        dateCreated: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        guestName: document.getElementById('guestName').value,
+        guestEmail: document.getElementById('guestEmail').value,
+        guestPhone: document.getElementById('guestPhone').value,
+        guestDietary: document.getElementById('guestDietary').value,
+        guestNotes: document.getElementById('guestNotes').value,
+        guestsCount: guestCount,
+        resDate: document.getElementById('resDate').value,
+        resTime: document.getElementById('resTime').value,
+        experienceType: document.querySelector('input[name="experienceType"]:checked').value,
+        paymentMethod: selectedPayment,
+        items: items,
+        pricing: {
+          subtotal: subtotal.toFixed(2),
+          serviceFee: service.toFixed(2),
+          heritageLevy: levy.toFixed(2),
+          discount: discount.toFixed(2),
+          total: total.toFixed(2)
+        }
+      };
+
+      try {
+        localStorage.setItem('praneetha_latest_order', JSON.stringify(orderData));
+      } catch (err) {
+        console.warn('Could not save to localStorage', err);
+      }
+
+      // Smooth redirection to Order Confirmation page
+      window.location.href = 'order-confirmation.html';
+    });
+
+    // Initial render
+    renderItems();
+  </script>
+</body>
+</html>

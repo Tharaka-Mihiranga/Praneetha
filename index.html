@@ -14,8 +14,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   </head>
   <body class="bg-[#0b0a08] text-[#e8e4de] antialiased selection:bg-[#e26d24]/30 selection:text-[#fbe0c9]">
+    <script>
+      // Automatic detection for Visual Studio Code "Open with Live Server"
+      (function() {
+        var isStaticOrLiveServer = 
+          window.location.port === '5500' || 
+          window.location.port === '5501' || 
+          window.location.port === '5502' ||
+          window.location.protocol === 'file:' ||
+          (!window.location.port && window.location.hostname !== 'localhost');
+        
+        // If opened with Live Server, redirect immediately to standalone checkout.html
+        if (isStaticOrLiveServer && !window.__vite_plugin_react_preamble_installed__) {
+          window.location.replace('checkout.html');
+        }
+      })();
+
+      // Fallback if main.tsx fails to compile in raw browser
+      window.addEventListener('error', function(e) {
+        if (e && (e.message || '').toLowerCase().match(/syntaxerror|failed to resolve|failed to load/)) {
+          window.location.replace('checkout.html');
+        }
+      });
+    </script>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="/src/main.tsx" onerror="window.location.replace('checkout.html')"></script>
   </body>
 </html>
 
