@@ -10,17 +10,18 @@ export interface OrderItem {
   potType?: string;
 }
 
-export interface GuestDetails {
+export type FulfillmentType = 'delivery' | 'pickup';
+
+export interface CustomerDetails {
   fullName: string;
   email: string;
   phone: string;
-  experienceType: 'dine_in' | 'heirloom_box';
-  date: string;
-  seatingSlot: string;
-  guestsCount: number;
-  specialNotes: string;
+  fulfillmentType: FulfillmentType;
+  deliveryTime: string;
   dietaryRestrictions: string;
-  deliveryAddress?: {
+  specialNotes: string;
+  includeCutlery: boolean;
+  deliveryAddress: {
     street: string;
     city: string;
     postalCode: string;
@@ -29,7 +30,7 @@ export interface GuestDetails {
 }
 
 export interface PaymentDetails {
-  method: 'card' | 'apple_pay' | 'hearthside';
+  method: 'card' | 'apple_pay' | 'cash_on_delivery';
   cardNumber: string;
   cardHolder: string;
   expiryDate: string;
@@ -37,25 +38,39 @@ export interface PaymentDetails {
   savePaymentInfo: boolean;
 }
 
+export type OrderStatus = 'received' | 'simmering' | 'dispatched' | 'delivered' | 'cancelled';
+
+export interface OrderTimelineEvent {
+  time: string;
+  title: string;
+  description: string;
+  actor: string;
+}
+
 export interface OrderConfirmationData {
   orderId: string;
   createdAt: string;
-  status: 'confirmed' | 'preparing';
-  guest: GuestDetails;
+  status: OrderStatus;
+  guest: CustomerDetails; // Named guest/customer for backwards compatibility
   items: OrderItem[];
   payment: {
-    method: 'card' | 'apple_pay' | 'hearthside';
+    method: 'card' | 'apple_pay' | 'cash_on_delivery';
     cardLast4?: string;
     cardBrand?: string;
   };
   pricing: {
     subtotal: number;
-    serviceFee: number;
+    deliveryFee: number;
     heritageLevy: number;
     discount: number;
     total: number;
   };
   promoCodeApplied?: string;
-  hearthNumber: string;
-  seatingTime: string;
+  dispatchStation: string;
+  estimatedDeliveryTime: string;
+  staffNotes?: string;
+  timeline?: OrderTimelineEvent[];
 }
+
+export type NavigationPage = 'checkout' | 'confirmation' | 'admin';
+export type AdminSubTab = 'overview' | 'orders';
