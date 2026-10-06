@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Praneetha - Food Orders Tab · Primitive Fire & Ancient Clay</title>
+  <meta name="description" content="Artisanal Hearth Woodfire Food Ordering & Claypot Specialties for Praneetha.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            editorial: ['"Cormorant Garamond"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #0d0b09;
+      color: #e5ded4;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-cinzel { font-family: 'Cinzel', serif; }
+    .font-editorial { font-family: 'Cormorant Garamond', Georgia, serif; }
+    
+    .glow-orange {
+      box-shadow: 0 0 25px rgba(234, 112, 27, 0.35);
+    }
+    .glow-orange:hover {
+      box-shadow: 0 0 35px rgba(234, 112, 27, 0.6);
+    }
+    
+    /* Toast animation */
+    @keyframes slideUpFade {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .toast-anim {
+      animation: slideUpFade 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-[#ea580c]/30 selection:text-[#fbe0c9]">
+
+  <!-- TOP VIEW SWITCHER: Works directly in Live Server -->
+  <div class="bg-[#14100c] border-b border-[#2a221a] py-2 px-4 z-50 no-print">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div class="flex items-center gap-2">
+        <span class="text-[#8e8578] uppercase tracking-wider font-medium text-[11px]">
+          Pages Switcher:
+        </span>
+        <div class="inline-flex rounded-md p-0.5 bg-[#1e1711] border border-[#332920]">
+          <a href="food-orders.html" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-semibold bg-gradient-to-r from-[#d95b12] to-[#ea701b] text-white shadow-sm">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            <span>Food Orders Tab</span>
+          </a>
+          <a href="order-management.html" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium text-[#9e9488] hover:text-[#f7ede2] transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+            <span>Order Management</span>
+          </a>
+          <a href="order-details.html" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium text-[#9e9488] hover:text-[#f7ede2] transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            <span>Order Details Modal</span>
+          </a>
+          <a href="checkout.html" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium text-[#9e9488] hover:text-[#f7ede2] transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+            <span>Checkout</span>
+          </a>
+          <a href="order-confirmation.html" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium text-[#9e9488] hover:text-[#f7ede2] transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>Confirmation</span>
+          </a>
+          <a href="admin.html" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium text-[#9e9488] hover:text-[#f7ede2] transition-colors">
+            <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+            <span>Dashboard</span>
+          </a>
+        </div>
+      </div>
+      <div class="text-[11px] text-[#8c8275] hidden sm:block">
+        Separate Food Orders HTML File · VS Code Live Server
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION BAR -->
+  <header class="sticky top-0 z-40 bg-[#0d0b09]/95 backdrop-blur-md border-b border-[#261f18]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <a href="food-orders.html" class="flex items-center gap-3 group">
+          <div class="relative w-8 h-8 flex items-center justify-center">
+            <svg class="w-6 h-6 text-[#f59e0b] fill-[#ea580c] transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24">
+              <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+            </svg>
+          </div>
+          <span class="font-cinzel text-xl sm:text-2xl font-bold tracking-[0.22em] text-[#f7ede2] group-hover:text-amber-400 transition-colors">
+            PRANEETHA
+          </span>
+        </a>
+
+        <nav class="hidden md:flex items-center space-x-7 text-xs font-semibold tracking-[0.16em] uppercase">
+          <a href="food-orders.html" class="text-amber-400 py-1 relative flex items-center gap-1.5">
+            <span>FOOD ORDERS</span>
+            <span class="absolute bottom-0 left-0 right-0 h-[2px] bg-amber-500 rounded-full"></span>
+          </a>
+          <a href="order-management.html" class="text-[#9c9388] hover:text-[#f7ede2] transition-colors">ORDER MANAGEMENT</a>
+          <a href="order-details.html" class="text-[#9c9388] hover:text-[#f7ede2] transition-colors">ORDER DETAILS</a>
+          <a href="checkout.html" class="text-[#9c9388] hover:text-[#f7ede2] transition-colors">CHECKOUT</a>
+        </nav>
+
+        <div class="flex items-center gap-3 sm:gap-4">
+          <button onclick="toggleCartDrawer()" class="relative p-2.5 rounded-sm bg-[#1b1510] hover:bg-[#251d16] border border-[#2f241a] text-[#e8e0d5] transition-colors flex items-center gap-2">
+            <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+            </svg>
+            <span class="text-xs font-semibold font-mono text-amber-400" id="cartBadgeCount">3 items</span>
+          </button>
+          
+          <a href="checkout.html" class="bg-gradient-to-r from-[#d95b12] to-[#ea701b] hover:from-[#c24c0a] hover:to-[#d85e0e] text-white font-medium text-xs tracking-[0.14em] uppercase px-5 py-2.5 rounded-sm glow-orange transition-all flex items-center gap-2">
+            <span>CHECKOUT</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="relative overflow-hidden border-b border-[#251e18] bg-[#0d0b09]">
+    <div class="absolute inset-0 opacity-25 bg-cover bg-center pointer-events-none mix-blend-luminosity filter blur-[1px]" style="background-image: url('images/hearth_clay_pots_1791214689063.jpg');"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-[#0d0b09]/80 via-[#0d0b09]/95 to-[#0d0b09] pointer-events-none"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-12">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+        <div>
+          <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#d97706] mb-3 font-mono">
+            <svg class="w-3.5 h-3.5 fill-[#ea580c] text-[#f59e0b]" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+            <span>Woodfire Hearth Menu · Pure Food Ordering</span>
+          </div>
+
+          <h1 class="font-cinzel text-3xl sm:text-5xl font-bold tracking-tight text-[#fbf7f0] leading-[1.15]">
+            FOOD ORDERS TAB
+          </h1>
+          <p class="mt-3 text-sm text-[#a3998e] max-w-2xl font-light leading-relaxed">
+            Curated ancestral clay pot curries and woodfire provisions, slow-simmered over Ceylon ironwood embers and packed in heated stone carriers.
+          </p>
+        </div>
+
+        <!-- Fulfillment Toggle Pill -->
+        <div class="bg-[#16120e] border border-[#2e2319] p-1.5 rounded-sm inline-flex items-center gap-1 self-start lg:self-auto">
+          <button id="btnFulfillDelivery" onclick="selectFulfillment('delivery')" class="px-4 py-2 rounded-sm text-xs font-semibold bg-amber-600 text-white transition-all flex items-center gap-2 shadow-sm">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"/></svg>
+            <span>Doorstep Courier Delivery ($15)</span>
+          </button>
+          <button id="btnFulfillPickup" onclick="selectFulfillment('pickup')" class="px-4 py-2 rounded-sm text-xs font-medium text-[#9c9183] hover:text-white transition-all flex items-center gap-2">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            <span>Hearthside Takeaway (Free)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Categories Filter Tabs -->
+      <div class="flex flex-wrap items-center gap-2 mt-8 pt-6 border-t border-[#221b14]">
+        <button onclick="filterCategory('all')" class="cat-pill active px-3.5 py-1.5 rounded-sm text-xs font-semibold bg-amber-600/20 text-amber-300 border border-amber-600/50">All Food Specialties (8)</button>
+        <button onclick="filterCategory('degustation')" class="cat-pill px-3.5 py-1.5 rounded-sm text-xs text-[#9e9488] hover:text-[#f7ede2] border border-transparent">Degustation Feasts</button>
+        <button onclick="filterCategory('curry')" class="cat-pill px-3.5 py-1.5 rounded-sm text-xs text-[#9e9488] hover:text-[#f7ede2] border border-transparent">Heirloom Claypots</button>
+        <button onclick="filterCategory('beverage')" class="cat-pill px-3.5 py-1.5 rounded-sm text-xs text-[#9e9488] hover:text-[#f7ede2] border border-transparent">Smoked Infusions</button>
+        <button onclick="filterCategory('bread')" class="cat-pill px-3.5 py-1.5 rounded-sm text-xs text-[#9e9488] hover:text-[#f7ede2] border border-transparent">Ember Roti & Rice</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN FOOD ORDERS CONTENT -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    
+    <!-- FOOD DISHES GRID (8 COLS) -->
+    <div class="lg:col-span-8 space-y-6">
+      
+      <div class="flex items-center justify-between text-xs text-[#8c8172]">
+        <span id="dishCountDisplay">Showing 8 woodfire specialties</span>
+        <span>Simmered to order in unglazed terracotta</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="menuGrid">
+        <!-- Dish cards rendered by JavaScript -->
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: LIVE CART SUMMARY (4 COLS) -->
+    <div class="lg:col-span-4 sticky top-28 space-y-5">
+      
+      <div class="bg-[#14110e] border border-[#2b2118] rounded-sm p-6 shadow-xl">
+        <div class="flex items-center justify-between border-b border-[#241c16] pb-4 mb-5">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+            </svg>
+            <h2 class="font-cinzel text-base font-bold text-[#f7efe4] tracking-wide">
+              Your Food Order Bag
+            </h2>
+          </div>
+          <span class="text-xs text-[#8c8172] font-mono" id="bagSummaryCount">3 dishes</span>
+        </div>
+
+        <!-- Selected Items List -->
+        <div class="space-y-3.5 max-h-[320px] overflow-y-auto pr-1" id="cartItemsList">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Order Calculations -->
+        <div class="border-t border-[#241c16] mt-6 pt-5 space-y-2.5 text-xs">
+          <div class="flex justify-between text-[#a89d8f]">
+            <span>Food Subtotal</span>
+            <span class="font-mono text-[#f5ede3]" id="subtotalDisplay">$391.00</span>
+          </div>
+          <div class="flex justify-between text-[#a89d8f]">
+            <span>Hearth Pot Packaging & Wax Seal</span>
+            <span class="font-mono text-[#f5ede3]" id="packagingDisplay">$19.55</span>
+          </div>
+          <div class="flex justify-between text-[#a89d8f]">
+            <span id="deliveryLabel">Heated Courier Delivery</span>
+            <span class="font-mono text-[#f5ede3]" id="deliveryFeeDisplay">$15.00</span>
+          </div>
+          <div class="flex justify-between text-base font-cinzel font-bold text-[#fdfaf5] pt-3 border-t border-[#241c16]">
+            <span>Total Settlement</span>
+            <span class="text-amber-400 font-mono" id="totalDisplay">$425.55</span>
+          </div>
+        </div>
+
+        <!-- Checkout Actions -->
+        <div class="mt-6 space-y-2.5">
+          <button onclick="proceedToCheckout()" class="w-full bg-gradient-to-r from-[#d95b12] to-[#ea701b] hover:from-[#c24c0a] hover:to-[#d85e0e] text-white font-semibold text-xs tracking-[0.14em] uppercase py-3.5 rounded-sm glow-orange transition-all flex items-center justify-center gap-2">
+            <span>Proceed to Food Checkout</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </button>
+
+          <a href="order-management.html" class="w-full text-center block py-2.5 bg-[#1b1510] hover:bg-[#251d16] border border-[#2f241a] text-xs text-[#cfc4b6] rounded-sm transition-colors">
+            View Live Kitchen Orders Console
+          </a>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-[#221a14] flex items-center gap-2 text-[11px] text-[#73675a]">
+          <svg class="w-4 h-4 text-amber-500/80 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          <span>Packed in heated stone insulated cases. Guaranteed hot upon arrival.</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- NOTIFICATION TOAST -->
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 hidden bg-[#1e1711] border border-amber-600/60 text-[#f5ede3] px-4 py-3 rounded-sm shadow-2xl flex items-center gap-3 toast-anim">
+    <svg class="w-4 h-4 text-amber-400 fill-[#ea580c]" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+    <span class="text-xs font-medium" id="toastMessage">Dish added to your food order!</span>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#090806] border-t border-[#1e1813] py-8 px-4 mt-auto no-print">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#8c8172]">
+      <div class="flex items-center gap-2">
+        <span class="font-cinzel text-sm font-bold text-[#f7efe4]">PRANEETHA</span>
+        <span class="text-[#594e43]">· Primitive Fire & Ancient Clay Dining</span>
+      </div>
+      <div class="flex flex-wrap gap-4">
+        <a href="food-orders.html" class="text-amber-500">Food Orders Tab</a>
+        <a href="order-management.html" class="hover:text-amber-400">Order Management</a>
+        <a href="order-details.html" class="hover:text-amber-400">Order Details Modal</a>
+        <a href="checkout.html" class="hover:text-amber-400">Checkout</a>
+        <a href="order-confirmation.html" class="hover:text-amber-400">Confirmation</a>
+        <a href="admin.html" class="hover:text-amber-400">Admin Dashboard</a>
+      </div>
+      <div class="text-[11px] text-[#594e43]">© 2026 Praneetha Hearth & Clay.</div>
+    </div>
+  </footer>
+
+  <!-- STANDALONE FOOD ORDERS JAVASCRIPT -->
+  <script>
+    // All available woodfire hearth food specialties
+    const menuItems = [
+      {
+        id: 'primordial-degustation',
+        name: 'The Primordial Hearth Degustation Box',
+        category: 'degustation',
+        kicker: '01 / CURATED TASTING FEAST',
+        potType: '7 Terracotta Vessels & Beeswax Cloth',
+        price: 145.00,
+        prepTime: '35 mins',
+        spice: 'Medium • Ember Blend',
+        description: 'Complete 7-course heirloom curries simmered in Matale clay pots. Includes dry-smoked mutton, coconut milk sambols, and clay-baked flatbreads.',
+        image: 'images/hearth_clay_pots_1791214689063.jpg'
+      },
+      {
+        id: 'heirloom-spiced-curry',
+        name: 'Artisanal Heirloom Spiced Curry',
+        category: 'curry',
+        kicker: '02 / UNGLAZED EARTHENWARE',
+        potType: 'Individual Kelani Clay Pot',
+        price: 45.00,
+        prepTime: '25 mins',
+        spice: 'Rich & Bold • Wild Cinnamon',
+        description: 'Slow-simmered over Ceylon ironwood embers with native river silts, balancing sharp sun-dried chilis with natural earth alkali.',
+        image: 'images/terracotta_feast_dish_1791214706393.jpg'
+      },
+      {
+        id: 'smoked-cinnamon-infusion',
+        name: 'Wild Cinnamon & Smoked Tamarind Carafe',
+        category: 'beverage',
+        kicker: '03 / ARTISANAL HEARTH BEVERAGE',
+        potType: 'Smoked Glass Earthen Carafe (750ml)',
+        price: 28.00,
+        prepTime: 'Immediate',
+        spice: 'Warm • Smoked Bark Essence',
+        description: 'Artisanal beverage with cured wild cinnamon bark, wood-roasted star anise, and smoked tamarind infusion rested over warm embers.',
+        image: 'images/woodfire_cinnamon_infusion_1791214721224.jpg'
+      },
+      {
+        id: 'lagoon-crab-claypot',
+        name: 'Slow-Simmered Black Pepper Lagoon Crab',
+        category: 'curry',
+        kicker: '04 / SEAFOOD SPECIALTY',
+        potType: 'Heavy Terracotta Simmer Pot',
+        price: 88.00,
+        prepTime: '30 mins',
+        spice: 'Fiery • Crushed Ceylon Peppercorn',
+        description: 'Fresh lagoon mud crab braised in a velvety reduction of toasted black peppercorns, roasted coconut paste, and young moringa leaves.',
+        image: 'images/terracotta_feast_dish_1791214706393.jpg'
+      },
+      {
+        id: 'ember-fired-roti',
+        name: 'Ember-Fired Roti & Wood-Smoked Chutneys',
+        category: 'bread',
+        kicker: '05 / PRIMITIVE GRAINS',
+        potType: 'Palm-Leaf Basket with Heated Stones',
+        price: 32.00,
+        prepTime: '15 mins',
+        spice: 'Mild • Roasted Coconut & Lime',
+        description: 'Four rustic wholemeal flatbreads charred directly on blazing ironwood coals, accompanied by smoked tomato preserve and kochchi sambol.',
+        image: 'images/hearth_clay_pots_1791214689063.jpg'
+      },
+      {
+        id: 'smoked-coconut-rice',
+        name: 'Smoked Coconut Milk Rice with Katta Sambol',
+        category: 'bread',
+        kicker: '06 / HEIRLOOM RED RICE',
+        potType: 'Shallow Earthen Terracotta Dish',
+        price: 24.00,
+        prepTime: '20 mins',
+        spice: 'Medium • Red Chili & Maldive Fish',
+        description: 'Porous clay-steamed traditional red grains steeped in thick fresh coconut milk, served with crushed dried chili and caramelized red onions.',
+        image: 'images/terracotta_feast_dish_1791214706393.jpg'
+      },
+      {
+        id: 'cinnamon-honey-treacle',
+        name: 'Wild Honey & Smoked Curd Earthen Pot',
+        category: 'beverage',
+        kicker: '07 / DUSK DESSERT',
+        potType: 'Miniature Unglazed Clay Pot',
+        price: 22.00,
+        prepTime: 'Immediate',
+        spice: 'Sweet • Matale Treacle Smoke',
+        description: 'Rich buffalo curd set in miniature clay pots, drizzled with woodfire-smoked kithul palm treacle and crushed toasted cashew praline.',
+        image: 'images/woodfire_cinnamon_infusion_1791214721224.jpg'
+      },
+      {
+        id: 'artisan-terracotta-vessel',
+        name: 'Artisan Kelani Hearth Pot (Collectible Gift)',
+        category: 'curry',
+        kicker: '08 / HERITAGE WARE',
+        potType: 'Unglazed Kiln-Fired Terracotta',
+        price: 45.00,
+        prepTime: 'Immediate',
+        spice: 'Neutral • Kitchen Keepsake',
+        description: 'Hand-thrown by village potters using indigenous Kelani silt. Yours to keep, re-season, and cook with over open flame at home.',
+        image: 'images/hearth_clay_pots_1791214689063.jpg'
+      }
+    ];
+
+    // Current state
+    let activeFulfillment = 'delivery'; // 'delivery' or 'pickup'
+    let activeCategory = 'all';
+    let cart = [
+      { id: 'primordial-degustation', qty: 2 },
+      { id: 'smoked-cinnamon-infusion', qty: 2 },
+      { id: 'artisan-terracotta-vessel', qty: 1 }
+    ];
+
+    // Load persisted cart if available
+    try {
+      const savedCart = localStorage.getItem('praneetha_food_cart');
+      if (savedCart) {
+        cart = JSON.parse(savedCart);
+      }
+    } catch(e) {}
+
+    function saveCart() {
+      try {
+        localStorage.setItem('praneetha_food_cart', JSON.stringify(cart));
+      } catch(e) {}
+    }
+
+    function selectFulfillment(type) {
+      activeFulfillment = type;
+      const btnDelivery = document.getElementById('btnFulfillDelivery');
+      const btnPickup = document.getElementById('btnFulfillPickup');
+
+      if (type === 'delivery') {
+        btnDelivery.className = 'px-4 py-2 rounded-sm text-xs font-semibold bg-amber-600 text-white transition-all flex items-center gap-2 shadow-sm';
+        btnPickup.className = 'px-4 py-2 rounded-sm text-xs font-medium text-[#9c9183] hover:text-white transition-all flex items-center gap-2';
+        document.getElementById('deliveryLabel').innerText = 'Heated Courier Delivery';
+        document.getElementById('deliveryFeeDisplay').innerText = '$15.00';
+      } else {
+        btnPickup.className = 'px-4 py-2 rounded-sm text-xs font-semibold bg-amber-600 text-white transition-all flex items-center gap-2 shadow-sm';
+        btnDelivery.className = 'px-4 py-2 rounded-sm text-xs font-medium text-[#9c9183] hover:text-white transition-all flex items-center gap-2';
+        document.getElementById('deliveryLabel').innerText = 'Hearthside Pickup';
+        document.getElementById('deliveryFeeDisplay').innerText = 'Free ($0.00)';
+      }
+      renderCart();
+    }
+
+    function filterCategory(cat) {
+      activeCategory = cat;
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        btn.className = 'cat-pill px-3.5 py-1.5 rounded-sm text-xs text-[#9e9488] hover:text-[#f7ede2] border border-transparent';
+      });
+      event.target.className = 'cat-pill active px-3.5 py-1.5 rounded-sm text-xs font-semibold bg-amber-600/20 text-amber-300 border border-amber-600/50';
+      renderMenu();
+    }
+
+    function renderMenu() {
+      const container = document.getElementById('menuGrid');
+      container.innerHTML = '';
+
+      const filtered = menuItems.filter(item => activeCategory === 'all' || item.category === activeCategory);
+      document.getElementById('dishCountDisplay').innerText = `Showing ${filtered.length} woodfire specialties`;
+
+      filtered.forEach(item => {
+        const inCartItem = cart.find(c => c.id === item.id);
+        const currentQty = inCartItem ? inCartItem.qty : 0;
+
+        const card = document.createElement('div');
+        card.className = 'bg-[#15120f] border border-[#2b221a] hover:border-amber-600/40 rounded-sm overflow-hidden flex flex-col justify-between transition-all group';
+        card.innerHTML = `
+          <div>
+            <div class="h-44 overflow-hidden relative bg-[#090705]">
+              <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100" />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#15120f] via-transparent to-black/30"></div>
+              <div class="absolute top-2.5 left-2.5 bg-black/75 backdrop-blur-sm border border-[#3b3126] text-[10px] font-mono px-2 py-0.5 rounded text-amber-400">
+                ${item.prepTime}
+              </div>
+              <div class="absolute bottom-2.5 right-2.5 bg-black/75 backdrop-blur-sm border border-[#3b3126] text-[11px] font-mono font-bold px-2.5 py-0.5 rounded text-white">
+                $${item.price.toFixed(2)}
+              </div>
+            </div>
+
+            <div class="p-4 space-y-2">
+              <span class="text-[10px] font-mono tracking-wider text-[#d97706] block uppercase">${item.kicker}</span>
+              <h3 class="font-cinzel text-base font-semibold text-[#f5ede3] leading-snug group-hover:text-amber-300 transition-colors">
+                ${item.name}
+              </h3>
+              <p class="text-xs text-[#9c9285] line-clamp-2 leading-relaxed">
+                ${item.description}
+              </p>
+              
+              <div class="pt-2 flex flex-wrap items-center gap-2 text-[10px] text-[#8c8071]">
+                <span class="bg-[#1e1711] px-2 py-0.5 rounded border border-[#33271c] font-mono text-amber-400/90">
+                  ${item.potType}
+                </span>
+                <span class="bg-[#1e1711] px-2 py-0.5 rounded border border-[#33271c]">
+                  ${item.spice}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 pt-0 border-t border-[#221b14] mt-2 flex items-center justify-between gap-3">
+            <div class="flex items-center border border-[#33281e] bg-[#1a140f] rounded-sm">
+              <button onclick="changeQty('${item.id}', -1)" class="px-2.5 py-1 text-xs text-[#a89d8f] hover:text-white transition-colors">-</button>
+              <span class="px-2 font-mono text-xs font-semibold text-amber-400">${currentQty}</span>
+              <button onclick="changeQty('${item.id}', 1)" class="px-2.5 py-1 text-xs text-[#a89d8f] hover:text-white transition-colors">+</button>
+            </div>
+
+            <button onclick="addToCart('${item.id}')" class="flex-1 bg-[#221912] hover:bg-[#2e2118] border border-[#3d2e20] text-xs font-semibold uppercase tracking-wider text-[#eeded0] hover:text-amber-400 py-1.5 px-3 rounded-sm transition-colors text-center">
+              ${currentQty > 0 ? 'Add More' : '+ Add to Order'}
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function changeQty(id, delta) {
+      const idx = cart.findIndex(c => c.id === id);
+      if (idx > -1) {
+        cart[idx].qty += delta;
+        if (cart[idx].qty <= 0) {
+          cart.splice(idx, 1);
+        }
+      } else if (delta > 0) {
+        cart.push({ id, qty: delta });
+      }
+      saveCart();
+      renderMenu();
+      renderCart();
+    }
+
+    function addToCart(id) {
+      const item = menuItems.find(m => m.id === id);
+      const existing = cart.find(c => c.id === id);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ id, qty: 1 });
+      }
+      saveCart();
+      renderMenu();
+      renderCart();
+      showToast(`Added "${item ? item.name : 'Dish'}" to food order bag!`);
+    }
+
+    function renderCart() {
+      const listContainer = document.getElementById('cartItemsList');
+      listContainer.innerHTML = '';
+
+      let subtotal = 0;
+      let totalDishes = 0;
+
+      cart.forEach(cartItem => {
+        const dish = menuItems.find(m => m.id === cartItem.id);
+        if (!dish) return;
+
+        const lineTotal = dish.price * cartItem.qty;
+        subtotal += lineTotal;
+        totalDishes += cartItem.qty;
+
+        const row = document.createElement('div');
+        row.className = 'flex items-center justify-between text-xs py-2 border-b border-[#201913]';
+        row.innerHTML = `
+          <div class="flex-1 pr-2">
+            <span class="font-medium text-[#f0e7dc] block truncate">${dish.name}</span>
+            <span class="text-[10px] text-[#85796b] font-mono">$${dish.price.toFixed(2)} each</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="flex items-center border border-[#33281e] bg-[#1a140f] rounded-sm text-[11px]">
+              <button onclick="changeQty('${dish.id}', -1)" class="px-1.5 py-0.5 text-[#a89d8f] hover:text-white">-</button>
+              <span class="px-1.5 font-mono text-amber-400 font-semibold">${cartItem.qty}</span>
+              <button onclick="changeQty('${dish.id}', 1)" class="px-1.5 py-0.5 text-[#a89d8f] hover:text-white">+</button>
+            </div>
+            <span class="font-mono text-[#f5ede3] font-semibold min-w-[50px] text-right">$${lineTotal.toFixed(2)}</span>
+          </div>
+        `;
+        listContainer.appendChild(row);
+      });
+
+      if (cart.length === 0) {
+        listContainer.innerHTML = `
+          <div class="py-8 text-center text-xs text-[#73675a]">
+            Your food bag is empty.<br>Choose dishes from the hearth menu above.
+          </div>
+        `;
+      }
+
+      const packagingFee = subtotal * 0.05; // 5% packaging levy
+      const deliveryFee = activeFulfillment === 'delivery' ? 15.00 : 0.00;
+      const grandTotal = subtotal + packagingFee + deliveryFee;
+
+      document.getElementById('subtotalDisplay').innerText = `$${subtotal.toFixed(2)}`;
+      document.getElementById('packagingDisplay').innerText = `$${packagingFee.toFixed(2)}`;
+      document.getElementById('totalDisplay').innerText = `$${grandTotal.toFixed(2)}`;
+      document.getElementById('cartBadgeCount').innerText = `${totalDishes} items`;
+      document.getElementById('bagSummaryCount').innerText = `${totalDishes} dishes`;
+    }
+
+    function proceedToCheckout() {
+      // Save items formatted for checkout page
+      const formattedItems = cart.map(c => {
+        const dish = menuItems.find(m => m.id === c.id);
+        return {
+          id: c.id,
+          name: dish.name,
+          kicker: dish.kicker,
+          price: dish.price,
+          quantity: c.qty,
+          image: dish.image,
+          potType: dish.potType
+        };
+      });
+
+      localStorage.setItem('praneetha_checkout_cart', JSON.stringify({
+        items: formattedItems,
+        fulfillmentType: activeFulfillment
+      }));
+
+      window.location.href = 'checkout.html';
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastNotification');
+      const msgElem = document.getElementById('toastMessage');
+      msgElem.innerText = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 2500);
+    }
+
+    function toggleCartDrawer() {
+      const target = document.getElementById('cartItemsList');
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Initialize
+    renderMenu();
+    renderCart();
+  </script>
+</body>
+</html>

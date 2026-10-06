@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Praneetha - Order Details Modal · Primitive Fire & Ancient Clay</title>
+  <meta name="description" content="Dedicated Order Details Modal & Kitchen Dispatch Inspector for Praneetha.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            editorial: ['"Cormorant Garamond"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #0b0908;
+      color: #e5ded4;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-cinzel { font-family: 'Cinzel', serif; }
+    .font-editorial { font-family: 'Cormorant Garamond', Georgia, serif; }
+
+    @media print {
+      body {
+        background-color: #ffffff !important;
+        color: #111111 !important;
+      }
+      .no-print { display: none !important; }
+      .print-only { display: block !important; }
+      .modal-box {
+        border: 1px solid #000 !important;
+        box-shadow: none !important;
+        background: #fff !important;
+        color: #000 !important;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-[#ea580c]/30 selection:text-[#fbe0c9]">
+
+  <!-- TOP VIEW SWITCHER: Works directly in Live Server -->
+  <div class="bg-[#14100c] border-b border-[#2a221a] py-2 px-4 z-50 no-print">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div class="flex items-center gap-2">
+        <span class="text-[#8e8578] uppercase tracking-wider font-medium text-[11px]">
+          Pages Switcher:
+        </span>
+        <div class="inline-flex rounded-md p-0.5 bg-[#1e1711] border border-[#332920]">
+          <a href="food-orders.html" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium text-[#9e9488] hover:text-[#f7ede2] transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            <span>Food Orders Tab</span>
+          </a>
+          <a href="order-management.html" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium text-[#9e9488] hover:text-[#f7ede2] transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+            <span>Order Management</span>
+          </a>
+          <a href="order-details.html" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-semibold bg-gradient-to-r from-[#d95b12] to-[#ea701b] text-white shadow-sm">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            <span>Order Details Modal</span>
+          </a>
+          <a href="checkout.html" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium text-[#9e9488] hover:text-[#f7ede2] transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+            <span>Checkout</span>
+          </a>
+          <a href="order-confirmation.html" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium text-[#9e9488] hover:text-[#f7ede2] transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>Confirmation</span>
+          </a>
+          <a href="admin.html" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium text-[#9e9488] hover:text-[#f7ede2] transition-colors">
+            <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+            <span>Dashboard</span>
+          </a>
+        </div>
+      </div>
+      <div class="text-[11px] text-[#8c8275] hidden sm:block">
+        Separate Order Details Modal HTML File · VS Code Live Server
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDER SELECTOR TOOLBAR -->
+  <div class="bg-[#100d0a] border-b border-[#251e18] px-4 py-2.5 no-print">
+    <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div class="flex items-center gap-2">
+        <span class="text-[#7c7265] uppercase font-mono text-[11px]">Inspect Food Order:</span>
+        <div class="flex flex-wrap gap-1.5" id="orderSelectPills">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="order-management.html" class="text-xs text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          <span>Back to Order Management</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CONTAINER (FOCUSED MODAL VIEW) -->
+  <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-8 w-full flex items-center justify-center">
+    
+    <div class="w-full bg-[#14110e] border border-[#2e241b] rounded-sm shadow-2xl overflow-hidden modal-box">
+      
+      <!-- Modal Top Bar -->
+      <div class="bg-[#1c1611] px-6 py-4 border-b border-[#2a2119] flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30">
+            <svg class="w-5 h-5 text-amber-500 fill-[#ea580c]" viewBox="0 0 24 24">
+              <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-2.5">
+              <h1 class="font-cinzel text-lg sm:text-xl font-bold text-[#f7efe4] tracking-wide" id="modalOrderIdTitle">
+                Food Order · #PRN-8429
+              </h1>
+              <span id="modalStatusBadge" class="text-[11px] font-mono font-medium px-2.5 py-0.5 rounded border bg-orange-950/60 text-orange-400 border-orange-800/80">
+                Claypot Simmering
+              </span>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-[#8c8172] mt-0.5">
+              <span id="modalCreatedAt">Placed Oct 06 · 18:42 PM</span>
+              <span>•</span>
+              <span id="modalFulfillmentBadge" class="uppercase font-mono text-[10px] text-amber-400">Doorstep Delivery</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2.5 no-print">
+          <button onclick="window.print()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[#241a13] hover:bg-[#302319] border border-[#382b20] text-xs text-[#d1c6b8] transition-colors">
+            <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+            <span>Print Kitchen Slip</span>
+          </button>
+          
+          <a href="order-management.html" class="p-1.5 rounded-sm text-[#8c8172] hover:text-white hover:bg-[#251d16] transition-colors" title="Close Modal">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Status & Dispatch Control Bar -->
+      <div class="bg-[#17120e] px-6 py-3 border-b border-[#251d16] flex flex-wrap items-center justify-between gap-4 no-print">
+        <div class="flex items-center gap-3">
+          <span class="text-xs text-[#8c8172] font-medium">Update Status:</span>
+          <select id="statusSelect" onchange="changeStatus(this.value)" class="bg-[#201811] border border-[#382b1f] text-xs text-[#f5ede3] py-1.5 px-3 rounded-sm focus:outline-none focus:border-amber-500 font-mono">
+            <option value="received">Order Received</option>
+            <option value="simmering" selected>Claypot Simmering</option>
+            <option value="dispatched">Dispatched for Delivery</option>
+            <option value="delivered">Delivered / Handed Over</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <span class="text-xs text-[#8c8172] font-medium">Assigned Dispatch Station:</span>
+          <select id="stationSelect" onchange="changeStation(this.value)" class="bg-[#201811] border border-[#382b1f] text-xs text-[#f5ede3] py-1.5 px-3 rounded-sm focus:outline-none focus:border-amber-500">
+            <option value="Dispatch Bay 01 · Carrier Pack #07">Dispatch Bay 01 · Carrier Pack #07</option>
+            <option value="Dispatch Bay 02 · Heated Courier Carrier" selected>Dispatch Bay 02 · Heated Courier Carrier</option>
+            <option value="Dispatch Bay 03 · Express Moto Dispatch">Dispatch Bay 03 · Express Moto Dispatch</option>
+            <option value="Hearthside Counter Handover Bay">Hearthside Counter Handover Bay</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Modal Body (Two-Column Layout) -->
+      <div class="p-6 grid grid-cols-1 md:grid-cols-12 gap-6">
+        
+        <!-- LEFT COLUMN: CUSTOMER, ADDRESS & DISHES (7 Cols) -->
+        <div class="md:col-span-7 space-y-6">
+          
+          <!-- Customer & Delivery Info Card -->
+          <div class="bg-[#18130f] border border-[#2a2017] p-4 rounded-sm space-y-3">
+            <h3 class="text-xs font-semibold uppercase tracking-wider text-amber-500 flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+              <span>Customer Contact & Delivery Address</span>
+            </h3>
+
+            <div class="grid grid-cols-2 gap-3 text-xs">
+              <div>
+                <span class="text-[#807466] block text-[10px]">Customer Name</span>
+                <span class="font-semibold text-white" id="custNameDisplay">Binodya Senanayake</span>
+              </div>
+              <div>
+                <span class="text-[#807466] block text-[10px]">Phone Number</span>
+                <a href="tel:+94779824510" class="text-amber-400 font-mono hover:underline" id="custPhoneDisplay">+94 77 982 4510</a>
+              </div>
+              <div class="col-span-2">
+                <span class="text-[#807466] block text-[10px]">Email Address</span>
+                <span class="text-[#cfc4b6]" id="custEmailDisplay">binodya.s@luxurycuisine.lk</span>
+              </div>
+            </div>
+
+            <div class="pt-2 border-t border-[#231a13] text-xs">
+              <span class="text-[#807466] block text-[10px]">Delivery Street Address</span>
+              <div class="flex items-start gap-1.5 mt-0.5">
+                <svg class="w-3.5 h-3.5 text-amber-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span class="text-[#f5ede3] font-medium" id="custAddressDisplay">42 Cinnamon Gardens Boulevard, Suite 5B, Colombo 07</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dishes Ordered Table -->
+          <div class="bg-[#18130f] border border-[#2a2017] rounded-sm overflow-hidden">
+            <div class="px-4 py-3 bg-[#1e1711] border-b border-[#281e16] flex items-center justify-between">
+              <h3 class="text-xs font-semibold uppercase tracking-wider text-amber-500">
+                Ordered Woodfire Dishes
+              </h3>
+              <span class="text-[11px] font-mono text-[#8c8071]" id="dishCountBadge">5 items</span>
+            </div>
+
+            <div class="divide-y divide-[#241b14] text-xs" id="dishesList">
+              <!-- Populated by JS -->
+            </div>
+
+            <!-- Financial Settlement -->
+            <div class="bg-[#14100c] p-4 border-t border-[#281e16] space-y-2 text-xs">
+              <div class="flex justify-between text-[#9e9284]">
+                <span>Food Subtotal</span>
+                <span class="font-mono text-[#e5ded4]" id="subtotalDisplay">$391.00</span>
+              </div>
+              <div class="flex justify-between text-[#9e9284]">
+                <span>Hearth Pot Packaging & Wax Seal</span>
+                <span class="font-mono text-[#e5ded4]" id="packagingDisplay">$19.55</span>
+              </div>
+              <div class="flex justify-between text-[#9e9284]">
+                <span>Heated Courier Delivery Fee</span>
+                <span class="font-mono text-[#e5ded4]" id="deliveryFeeDisplay">$15.00</span>
+              </div>
+              <div class="flex justify-between text-sm font-bold text-white pt-2 border-t border-[#231a13]">
+                <span class="font-cinzel">Total Settlement</span>
+                <span class="font-mono text-amber-400" id="totalDisplay">$386.45</span>
+              </div>
+              <div class="pt-2 text-[10px] text-[#73675a] flex items-center justify-between">
+                <span>Payment: Heritage Card •••• 4242</span>
+                <span class="font-mono">Auth #PRN-TX-891024</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: TIMELINE & STAFF NOTES (5 Cols) -->
+        <div class="md:col-span-5 space-y-6">
+          
+          <!-- Kitchen Dispatch Timeline -->
+          <div class="bg-[#18130f] border border-[#2a2017] p-4 rounded-sm space-y-4">
+            <h3 class="text-xs font-semibold uppercase tracking-wider text-amber-500 flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>Live Kitchen Timeline</span>
+            </h3>
+
+            <div class="space-y-4 pl-2" id="timelineList">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Kitchen & Courier Dispatch Notes -->
+          <div class="bg-[#18130f] border border-[#2a2017] p-4 rounded-sm space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-semibold uppercase tracking-wider text-amber-500">
+                Staff & Dispatch Notes
+              </h3>
+              <span id="savedIndicator" class="text-[10px] text-emerald-400 hidden">✓ Saved</span>
+            </div>
+
+            <textarea
+              id="staffNotesTextarea"
+              rows="3"
+              placeholder="Enter kitchen prep notes, courier dispatch remarks, or customer instructions..."
+              class="w-full bg-[#120e0b] border border-[#2e2319] text-xs text-[#f5ede3] p-3 rounded-sm focus:outline-none focus:border-amber-500 resize-none placeholder:text-[#5c5042]"
+            ></textarea>
+
+            <button onclick="saveStaffNotes()" class="w-full py-2 bg-[#221912] hover:bg-[#2e2118] border border-[#3d2e20] text-xs font-medium text-amber-400 hover:text-amber-300 rounded-sm transition-colors">
+              Save Staff Notes
+            </button>
+          </div>
+
+          <!-- Bottom Actions -->
+          <div class="space-y-2 pt-2 no-print">
+            <a href="order-management.html" class="block w-full py-2.5 text-center bg-gradient-to-r from-[#d95b12] to-[#ea701b] hover:from-[#c24c0a] hover:to-[#d85e0e] text-white font-medium text-xs uppercase tracking-wider rounded-sm transition-all shadow-sm">
+              Done & Return to Order Management
+            </a>
+            <a href="food-orders.html" class="block w-full py-2 text-center bg-[#18130f] hover:bg-[#221b14] border border-[#2e2319] text-xs text-[#9c9183] hover:text-[#f7ede2] rounded-sm transition-colors">
+              Go to Food Orders Tab
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#090806] border-t border-[#1e1813] py-6 px-4 text-center mt-auto no-print">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#8c8172]">
+      <div>
+        <span class="font-cinzel text-sm font-bold text-[#f7efe4]">PRANEETHA</span>
+        <span class="text-[#594e43]">· Order Details Modal Console</span>
+      </div>
+      <div class="flex gap-4">
+        <a href="food-orders.html" class="hover:text-amber-400">Food Orders</a>
+        <a href="order-management.html" class="hover:text-amber-400">Order Management</a>
+        <a href="order-details.html" class="text-amber-500">Order Details</a>
+        <a href="checkout.html" class="hover:text-amber-400">Checkout</a>
+        <a href="admin.html" class="hover:text-amber-400">Dashboard</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- STANDALONE JAVASCRIPT -->
+  <script>
+    const sampleOrders = [
+      {
+        orderId: 'PRN-8429',
+        createdAt: 'Oct 06 · 18:42 PM',
+        status: 'simmering',
+        guest: {
+          fullName: 'Binodya Senanayake',
+          email: 'binodya.s@luxurycuisine.lk',
+          phone: '+94 77 982 4510',
+          fulfillmentType: 'delivery',
+          deliveryAddress: { street: '42 Cinnamon Gardens Boulevard, Suite 5B', city: 'Colombo 07' }
+        },
+        dispatchStation: 'Dispatch Bay 02 · Heated Courier Carrier',
+        staffNotes: 'Customer requested gentle ember heat. Unbroken terracotta wax seal verified before loading carrier.',
+        pricing: { subtotal: 391.00, packaging: 19.55, deliveryFee: 15.00, total: 386.45 },
+        items: [
+          { name: 'The Primordial Hearth Degustation Box', qty: 2, potType: '7 Terracotta Vessels', price: 145.00 },
+          { name: 'Wild Cinnamon & Tamarind Infusion', qty: 2, potType: 'Smoked Glass Carafe', price: 28.00 },
+          { name: 'Artisan Kelani Terracotta Hearth Pot', qty: 1, potType: 'Collectible Terracotta', price: 45.00 }
+        ],
+        timeline: [
+          { time: '18:42 PM', title: 'Order Received & Verified', desc: 'Pre-payment authorized via Heritage Card.', actor: 'Hearth Web Console' },
+          { time: '18:46 PM', title: 'Claypots Placed on Ceylon Embers', desc: 'Matale ironwood embers kindled at 240°C.', actor: 'Chef Somaratne' },
+          { time: '19:05 PM', title: 'Mineral Simmer Reached', desc: 'Curries sealed with fresh beeswax cloth.', actor: 'Heirloom Hearth Kitchen' }
+        ]
+      },
+      {
+        orderId: 'PRN-7914',
+        createdAt: 'Oct 06 · 18:15 PM',
+        status: 'simmering',
+        guest: {
+          fullName: 'Rohan Wickremasinghe',
+          email: 'rohan.w@ceylontea.com',
+          phone: '+94 71 445 8820',
+          fulfillmentType: 'delivery',
+          deliveryAddress: { street: '88 Ward Place, Penthouse A', city: 'Colombo 07' }
+        },
+        dispatchStation: 'Dispatch Bay 01 · Carrier Pack #07',
+        staffNotes: 'Executive tea estate delegation. Ensure extra roasted kochchi sambol is included.',
+        pricing: { subtotal: 692.00, packaging: 34.60, deliveryFee: 15.00, total: 741.60 },
+        items: [
+          { name: 'The Primordial Hearth Degustation Box', qty: 4, potType: '7 Terracotta Vessels', price: 145.00 },
+          { name: 'Wild Cinnamon & Tamarind Infusion', qty: 4, potType: 'Smoked Glass Carafe', price: 28.00 }
+        ],
+        timeline: [
+          { time: '18:15 PM', title: 'Order Placed & Confirmed', desc: '4 tasting feasts registered.', actor: 'Online Terminal' },
+          { time: '18:22 PM', title: 'Fires Kindled in Ironwood Bay', desc: 'Simmering in heavy pots.', actor: 'Master Firekeeper' }
+        ]
+      },
+      {
+        orderId: 'PRN-6582',
+        createdAt: 'Oct 06 · 17:50 PM',
+        status: 'dispatched',
+        guest: {
+          fullName: 'Dr. Ananya Silva',
+          email: 'a.silva@postgrad.cmb.ac.lk',
+          phone: '+94 76 320 1199',
+          fulfillmentType: 'delivery',
+          deliveryAddress: { street: '14/2 Alfred House Gardens', city: 'Colombo 03' }
+        },
+        dispatchStation: 'Dispatch Bay 03 · Express Moto Dispatch',
+        staffNotes: 'Hospital compound delivery. Driver instructed to call upon arrival at security gate.',
+        pricing: { subtotal: 290.00, packaging: 14.50, deliveryFee: 15.00, total: 319.50 },
+        items: [
+          { name: 'The Primordial Hearth Degustation Box', qty: 2, potType: '7 Terracotta Vessels', price: 145.00 }
+        ],
+        timeline: [
+          { time: '17:50 PM', title: 'Order Received', desc: 'Two degustation feasts ordered.', actor: 'Online Terminal' },
+          { time: '18:10 PM', title: 'Kitchen Prep Complete', desc: 'Beeswax seals locked.', actor: 'Expediter' },
+          { time: '18:30 PM', title: 'Courier Dispatched', desc: 'Heated stone carrier #09 in transit.', actor: 'Express Courier' }
+        ]
+      },
+      {
+        orderId: 'PRN-5120',
+        createdAt: 'Oct 06 · 16:30 PM',
+        status: 'delivered',
+        guest: {
+          fullName: 'Marcus Vance & Delegation',
+          email: 'm.vance@vanceholding.sg',
+          phone: '+65 9123 4819',
+          fulfillmentType: 'pickup',
+          deliveryAddress: { street: 'Flagship Hearth Counter Pickup', city: 'Colombo 07' }
+        },
+        dispatchStation: 'Hearthside Counter Handover Bay',
+        staffNotes: 'Picked up by diplomatic convoy driver. Gift packaging included.',
+        pricing: { subtotal: 1308.00, packaging: 65.40, deliveryFee: 0.00, total: 1242.60 },
+        items: [
+          { name: 'The Primordial Hearth Degustation Box', qty: 6, potType: '7 Terracotta Vessels', price: 145.00 },
+          { name: 'Wild Cinnamon & Tamarind Infusion', qty: 6, potType: 'Smoked Glass Carafe', price: 28.00 },
+          { name: 'Artisan Kelani Terracotta Hearth Pot', qty: 4, potType: 'Collectible Terracotta', price: 45.00 }
+        ],
+        timeline: [
+          { time: '16:30 PM', title: 'Order Placed', desc: 'Takeaway pickup scheduled.', actor: 'Online Terminal' },
+          { time: '17:15 PM', title: 'Packed & Rested in Heated Bay', desc: 'Insulated bamboo crate.', actor: 'Kitchen Head' },
+          { time: '17:40 PM', title: 'Handed Over to Customer', desc: 'Signed receipt collected.', actor: 'Flagship Counter' }
+        ]
+      }
+    ];
+
+    // Check if URL has ?id=...
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramId = urlParams.get('id');
+
+    let currentOrder = sampleOrders[0];
+    if (paramId) {
+      const match = sampleOrders.find(o => o.orderId.toLowerCase() === paramId.toLowerCase());
+      if (match) currentOrder = match;
+    }
+
+    // Render Order Selector Pills
+    function renderOrderPills() {
+      const container = document.getElementById('orderSelectPills');
+      container.innerHTML = '';
+      sampleOrders.forEach(o => {
+        const btn = document.createElement('button');
+        const isActive = o.orderId === currentOrder.orderId;
+        btn.className = `px-2.5 py-1 rounded-sm text-xs font-mono transition-colors ${
+          isActive 
+            ? 'bg-amber-600 text-white font-bold' 
+            : 'bg-[#1b1510] text-[#9c9183] hover:text-white border border-[#2d2218]'
+        }`;
+        btn.innerText = `#${o.orderId}`;
+        btn.onclick = () => selectOrder(o.orderId);
+        container.appendChild(btn);
+      });
+    }
+
+    function selectOrder(id) {
+      const target = sampleOrders.find(o => o.orderId === id);
+      if (target) {
+        currentOrder = target;
+        renderOrderPills();
+        renderOrderDetails();
+      }
+    }
+
+    function renderOrderDetails() {
+      // Header details
+      document.getElementById('modalOrderIdTitle').innerText = `Food Order · #${currentOrder.orderId}`;
+      document.getElementById('modalCreatedAt').innerText = `Placed ${currentOrder.createdAt}`;
+      
+      const fulfillType = currentOrder.guest.fulfillmentType === 'delivery' ? 'Doorstep Delivery' : 'Hearthside Pickup';
+      document.getElementById('modalFulfillmentBadge').innerText = fulfillType;
+
+      // Status badge styling
+      const statusBadge = document.getElementById('modalStatusBadge');
+      const statusSelect = document.getElementById('statusSelect');
+      statusSelect.value = currentOrder.status;
+
+      let badgeClass = 'bg-stone-900 text-stone-300 border-stone-700';
+      let badgeLabel = currentOrder.status;
+      if (currentOrder.status === 'received') {
+        badgeClass = 'bg-amber-950/60 text-amber-400 border-amber-800/80';
+        badgeLabel = 'Order Received';
+      } else if (currentOrder.status === 'simmering') {
+        badgeClass = 'bg-orange-950/60 text-orange-400 border-orange-800/80';
+        badgeLabel = 'Claypot Simmering';
+      } else if (currentOrder.status === 'dispatched') {
+        badgeClass = 'bg-blue-950/60 text-blue-400 border-blue-800/80';
+        badgeLabel = 'Dispatched for Delivery';
+      } else if (currentOrder.status === 'delivered') {
+        badgeClass = 'bg-emerald-950/60 text-emerald-400 border-emerald-800/80';
+        badgeLabel = 'Delivered / Handed Over';
+      } else if (currentOrder.status === 'cancelled') {
+        badgeClass = 'bg-rose-950/60 text-rose-400 border-rose-800/80';
+        badgeLabel = 'Cancelled';
+      }
+
+      statusBadge.className = `text-[11px] font-mono font-medium px-2.5 py-0.5 rounded border ${badgeClass}`;
+      statusBadge.innerText = badgeLabel;
+
+      // Station select
+      document.getElementById('stationSelect').value = currentOrder.dispatchStation;
+
+      // Customer Details
+      document.getElementById('custNameDisplay').innerText = currentOrder.guest.fullName;
+      document.getElementById('custPhoneDisplay').innerText = currentOrder.guest.phone;
+      document.getElementById('custPhoneDisplay').href = `tel:${currentOrder.guest.phone}`;
+      document.getElementById('custEmailDisplay').innerText = currentOrder.guest.email;
+      document.getElementById('custAddressDisplay').innerText = `${currentOrder.guest.deliveryAddress.street}, ${currentOrder.guest.deliveryAddress.city}`;
+
+      // Dishes List
+      const dishesContainer = document.getElementById('dishesList');
+      dishesContainer.innerHTML = '';
+      let totalQty = 0;
+
+      currentOrder.items.forEach(item => {
+        totalQty += item.qty;
+        const lineTotal = item.qty * item.price;
+        const div = document.createElement('div');
+        div.className = 'p-3 flex items-center justify-between hover:bg-[#1d1612] transition-colors';
+        div.innerHTML = `
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-amber-400 font-semibold">${item.qty}x</span>
+              <span class="font-medium text-[#f5ede3]">${item.name}</span>
+            </div>
+            <span class="text-[10px] text-[#85786a] font-mono block ml-6">${item.potType || 'Clay Vessel'}</span>
+          </div>
+          <div class="text-right">
+            <span class="font-mono text-white font-semibold">$${lineTotal.toFixed(2)}</span>
+            <span class="block text-[10px] text-[#73675a] font-mono">$${item.price.toFixed(2)} ea</span>
+          </div>
+        `;
+        dishesContainer.appendChild(div);
+      });
+
+      document.getElementById('dishCountBadge').innerText = `${totalQty} items total`;
+
+      // Financials
+      document.getElementById('subtotalDisplay').innerText = `$${currentOrder.pricing.subtotal.toFixed(2)}`;
+      document.getElementById('packagingDisplay').innerText = `$${(currentOrder.pricing.packaging || 15).toFixed(2)}`;
+      document.getElementById('deliveryFeeDisplay').innerText = currentOrder.guest.fulfillmentType === 'delivery' ? '$15.00' : 'Free ($0.00)';
+      document.getElementById('totalDisplay').innerText = `$${currentOrder.pricing.total.toFixed(2)}`;
+
+      // Timeline
+      const timelineContainer = document.getElementById('timelineList');
+      timelineContainer.innerHTML = '';
+      currentOrder.timeline.forEach((step, idx) => {
+        const stepDiv = document.createElement('div');
+        stepDiv.className = 'relative pl-6 pb-2 border-l border-[#2e2319] last:border-l-0 text-xs';
+        stepDiv.innerHTML = `
+          <div class="absolute -left-1.5 top-0 w-3 h-3 rounded-full bg-amber-500 border-2 border-[#18130f]"></div>
+          <div class="flex items-center justify-between text-[#85786a] text-[10px] font-mono">
+            <span>${step.time}</span>
+            <span class="text-amber-500/80">${step.actor}</span>
+          </div>
+          <h4 class="font-medium text-[#f5ede3] text-xs mt-0.5">${step.title}</h4>
+          <p class="text-[11px] text-[#9c9183] mt-0.5">${step.desc}</p>
+        `;
+        timelineContainer.appendChild(stepDiv);
+      });
+
+      // Notes
+      document.getElementById('staffNotesTextarea').value = currentOrder.staffNotes || '';
+    }
+
+    function changeStatus(newStatus) {
+      currentOrder.status = newStatus;
+      currentOrder.timeline.push({
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        title: `Status: ${newStatus.toUpperCase()}`,
+        desc: 'Updated in Order Details console.',
+        actor: 'Staff Operator'
+      });
+      renderOrderDetails();
+    }
+
+    function changeStation(newStation) {
+      currentOrder.dispatchStation = newStation;
+      renderOrderDetails();
+    }
+
+    function saveStaffNotes() {
+      currentOrder.staffNotes = document.getElementById('staffNotesTextarea').value;
+      const ind = document.getElementById('savedIndicator');
+      ind.classList.remove('hidden');
+      setTimeout(() => ind.classList.add('hidden'), 2000);
+    }
+
+    // Init
+    renderOrderPills();
+    renderOrderDetails();
+  </script>
+</body>
+</html>

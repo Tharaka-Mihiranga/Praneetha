@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Praneetha - Order Management · Live Kitchen Console</title>
+  <meta name="description" content="Dedicated Food Order Management Table and Operations Grid for Praneetha.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            editorial: ['"Cormorant Garamond"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #0d0b09;
+      color: #e5ded4;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-cinzel { font-family: 'Cinzel', serif; }
+    .font-editorial { font-family: 'Cormorant Garamond', Georgia, serif; }
+
+    @media print {
+      body { background-color: #ffffff !important; color: #111111 !important; }
+      .no-print { display: none !important; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-[#ea580c]/30 selection:text-[#fbe0c9]">
+
+  <!-- TOP VIEW SWITCHER: Works directly in Live Server -->
+  <div class="bg-[#14100c] border-b border-[#2a221a] py-2 px-4 z-50 no-print">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div class="flex items-center gap-2">
+        <span class="text-[#8e8578] uppercase tracking-wider font-medium text-[11px]">
+          Pages Switcher:
+        </span>
+        <div class="inline-flex rounded-md p-0.5 bg-[#1e1711] border border-[#332920]">
+          <a href="food-orders.html" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium text-[#9e9488] hover:text-[#f7ede2] transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            <span>Food Orders Tab</span>
+          </a>
+          <a href="order-management.html" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-semibold bg-gradient-to-r from-[#d95b12] to-[#ea701b] text-white shadow-sm">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+            <span>Order Management</span>
+          </a>
+          <a href="order-details.html" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium text-[#9e9488] hover:text-[#f7ede2] transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            <span>Order Details Modal</span>
+          </a>
+          <a href="checkout.html" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium text-[#9e9488] hover:text-[#f7ede2] transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+            <span>Checkout</span>
+          </a>
+          <a href="order-confirmation.html" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium text-[#9e9488] hover:text-[#f7ede2] transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>Confirmation</span>
+          </a>
+          <a href="admin.html" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium text-[#9e9488] hover:text-[#f7ede2] transition-colors">
+            <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+            <span>Dashboard</span>
+          </a>
+        </div>
+      </div>
+      <div class="text-[11px] text-[#8c8275] hidden sm:block">
+        Separate Order Management HTML File · VS Code Live Server
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION BAR -->
+  <header class="sticky top-0 z-40 bg-[#0d0b09]/95 backdrop-blur-md border-b border-[#261f18] no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <a href="food-orders.html" class="flex items-center gap-3 group">
+          <div class="relative w-8 h-8 flex items-center justify-center">
+            <svg class="w-6 h-6 text-[#f59e0b] fill-[#ea580c] transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24">
+              <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+            </svg>
+          </div>
+          <span class="font-cinzel text-xl sm:text-2xl font-bold tracking-[0.22em] text-[#f7ede2] group-hover:text-amber-400 transition-colors">
+            PRANEETHA
+          </span>
+        </a>
+
+        <nav class="hidden md:flex items-center space-x-7 text-xs font-semibold tracking-[0.16em] uppercase">
+          <a href="food-orders.html" class="text-[#9c9388] hover:text-[#f7ede2] transition-colors">FOOD ORDERS</a>
+          <a href="order-management.html" class="text-amber-400 py-1 relative">
+            <span>ORDER MANAGEMENT</span>
+            <span class="absolute bottom-0 left-0 right-0 h-[2px] bg-amber-500 rounded-full"></span>
+          </a>
+          <a href="order-details.html" class="text-[#9c9388] hover:text-[#f7ede2] transition-colors">ORDER DETAILS</a>
+          <a href="checkout.html" class="text-[#9c9388] hover:text-[#f7ede2] transition-colors">CHECKOUT</a>
+        </nav>
+
+        <div class="flex items-center gap-3 sm:gap-4">
+          <a href="food-orders.html" class="bg-gradient-to-r from-[#d95b12] to-[#ea701b] hover:from-[#c24c0a] hover:to-[#d85e0e] text-white font-medium text-xs tracking-[0.14em] uppercase px-5 py-2.5 rounded-sm transition-all flex items-center gap-2">
+            <span>+ NEW FOOD ORDER</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN ORDER MANAGEMENT VIEW -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-6">
+    
+    <!-- Title & Controls Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#281f17] pb-6">
+      <div>
+        <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#d97706] mb-1 font-mono">
+          <svg class="w-3.5 h-3.5 fill-[#ea580c] text-[#f59e0b]" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+          <span>Operations Console · No Table Bookings</span>
+        </div>
+        <h1 class="font-cinzel text-2xl sm:text-3xl font-bold tracking-tight text-[#fbf7f0]">
+          Food Order Management
+        </h1>
+        <p class="text-xs text-[#9c9285] mt-0.5">
+          Live kitchen ledger of all customer food orders, simmering status, and courier dispatch.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button onclick="exportCSV()" class="px-3.5 py-2 bg-[#1c1611] hover:bg-[#261f18] border border-[#33281e] text-xs font-medium text-[#d1c6b8] rounded-sm transition-colors flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          <span>Export CSV</span>
+        </button>
+        <a href="food-orders.html" class="px-4 py-2 bg-gradient-to-r from-[#d95b12] to-[#ea701b] hover:from-[#c24c0a] hover:to-[#d85e0e] text-white font-medium text-xs uppercase tracking-wider rounded-sm shadow-sm flex items-center gap-1.5">
+          <span>+ Create Order</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- KPI Summary Bar -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div class="bg-[#14110e] border border-[#2b2118] p-3.5 rounded-sm">
+        <span class="text-[10px] font-mono text-[#8c8071] uppercase block">Active Kitchen Orders</span>
+        <span class="text-xl font-bold font-mono text-white mt-1 block" id="kpiActiveCount">4 Orders</span>
+      </div>
+      <div class="bg-[#14110e] border border-[#2b2118] p-3.5 rounded-sm">
+        <span class="text-[10px] font-mono text-[#8c8071] uppercase block">Claypots on Fire</span>
+        <span class="text-xl font-bold font-mono text-orange-400 mt-1 block">15 Pots</span>
+      </div>
+      <div class="bg-[#14110e] border border-[#2b2118] p-3.5 rounded-sm">
+        <span class="text-[10px] font-mono text-[#8c8071] uppercase block">Ready for Courier</span>
+        <span class="text-xl font-bold font-mono text-blue-400 mt-1 block">1 Bay Dispatched</span>
+      </div>
+      <div class="bg-[#14110e] border border-[#2b2118] p-3.5 rounded-sm">
+        <span class="text-[10px] font-mono text-[#8c8071] uppercase block">Daily Food Revenue</span>
+        <span class="text-xl font-bold font-mono text-amber-400 mt-1 block" id="totalVolumeDisplay">$3,066.35</span>
+      </div>
+    </div>
+
+    <!-- Search Input & Filters -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="relative flex-1 max-w-md">
+        <input
+          type="text"
+          id="searchInput"
+          oninput="renderOrdersTable()"
+          placeholder="Search by Order #, Customer Name, Phone, Street..."
+          class="w-full bg-[#16120e] border border-[#2e2319] text-xs text-[#f5ede3] pl-4 pr-4 py-2.5 rounded-sm focus:outline-none focus:border-amber-500 placeholder:text-[#5c5042]"
+        >
+      </div>
+
+      <div class="flex items-center gap-2 text-xs">
+        <span class="text-[#73675a] uppercase font-mono text-[11px]">Method:</span>
+        <select id="fulfillmentFilter" onchange="renderOrdersTable()" class="bg-[#1c1611] border border-[#33281e] text-xs text-[#f5ede3] py-2 px-3 rounded-sm focus:outline-none focus:border-amber-500">
+          <option value="all">All Methods (Delivery & Pickup)</option>
+          <option value="delivery">Doorstep Delivery</option>
+          <option value="pickup">Takeaway Pickup</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Segmented Status Tabs -->
+    <div class="flex flex-wrap items-center justify-between gap-3 bg-[#14110e] border border-[#2b2118] p-3 rounded-sm">
+      <div class="flex flex-wrap items-center gap-1" id="statusFilterButtons">
+        <button onclick="setStatusFilter('all')" class="status-btn active px-3 py-1 rounded text-xs bg-amber-600 text-white font-semibold">All Orders</button>
+        <button onclick="setStatusFilter('received')" class="status-btn px-3 py-1 rounded text-xs text-[#9c9183] hover:text-white">Received</button>
+        <button onclick="setStatusFilter('simmering')" class="status-btn px-3 py-1 rounded text-xs text-[#9c9183] hover:text-white">Simmering</button>
+        <button onclick="setStatusFilter('dispatched')" class="status-btn px-3 py-1 rounded text-xs text-[#9c9183] hover:text-white">Dispatched</button>
+        <button onclick="setStatusFilter('delivered')" class="status-btn px-3 py-1 rounded text-xs text-[#9c9183] hover:text-white">Delivered</button>
+      </div>
+
+      <div class="text-xs text-[#8c8172]">
+        Filtered Revenue: <strong id="filteredSubtotalDisplay" class="text-amber-400 font-mono tabular-nums">$3,066.35</strong>
+      </div>
+    </div>
+
+    <!-- High-Density Orders Table -->
+    <div class="bg-[#14110e] border border-[#2b2118] rounded-sm overflow-hidden shadow-xl">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-[#1a1410] text-[#8c8172] uppercase font-mono text-[10px] tracking-wider border-b border-[#281f17]">
+            <tr>
+              <th class="py-3 px-4">Order ID & Date</th>
+              <th class="py-3 px-4">Customer</th>
+              <th class="py-3 px-4">Fulfillment</th>
+              <th class="py-3 px-4">Destination / Station</th>
+              <th class="py-3 px-4 text-center">Dishes</th>
+              <th class="py-3 px-4">Kitchen Status</th>
+              <th class="py-3 px-4 text-right">Settlement</th>
+              <th class="py-3 px-4 text-right">Modal & Details</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTableBody" class="divide-y divide-[#221a14] text-[#d5cdc3]">
+            <!-- Dynamically populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- INLINE ORDER DETAILS MODAL OVERLAY -->
+  <div id="inlineModalOverlay" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div class="relative w-full max-w-3xl bg-[#14110e] border border-[#2e241b] rounded-sm shadow-2xl overflow-hidden my-6 text-[#e5ded4]">
+      
+      <!-- Modal Header -->
+      <div class="bg-[#1c1611] px-6 py-4 border-b border-[#2a2119] flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30">
+            <svg class="w-4 h-4 text-amber-500 fill-[#ea580c]" viewBox="0 0 24 24">
+              <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="font-cinzel text-base font-bold text-[#f7efe4]" id="inlineModalTitle">
+                Order Details
+              </h2>
+              <span id="inlineModalStatusBadge" class="text-[10px] font-mono px-2 py-0.5 rounded border">
+                Status
+              </span>
+            </div>
+            <span class="text-[11px] text-[#8c8172]" id="inlineModalSubtitle">
+              Placed Timestamp
+            </span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="closeInlineModal()" class="p-1.5 rounded-sm text-[#8c8172] hover:text-white hover:bg-[#251d16] transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Body Content -->
+      <div class="p-6 space-y-5" id="inlineModalBody">
+        <!-- Injected via JS -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="bg-[#18130f] px-6 py-3 border-t border-[#2a2119] flex items-center justify-between text-xs">
+        <a id="inlineModalFullPageLink" href="order-details.html" class="text-amber-400 hover:underline flex items-center gap-1 font-mono">
+          <span>Open Full Dedicated Page →</span>
+        </a>
+        <button onclick="closeInlineModal()" class="px-4 py-1.5 bg-[#251d16] hover:bg-[#32261e] text-[#d5cdc3] rounded-sm transition-colors">
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#090806] border-t border-[#1e1813] py-8 px-4 text-center sm:text-left mt-auto no-print">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#8c8172]">
+      <div class="flex items-center gap-2">
+        <span class="font-cinzel text-sm font-bold text-[#f7efe4]">PRANEETHA</span>
+        <span class="text-[#594e43]">· Food Operations Console</span>
+      </div>
+      <div class="flex gap-4">
+        <a href="food-orders.html" class="hover:text-amber-400">Food Orders</a>
+        <a href="order-management.html" class="text-amber-500">Order Management</a>
+        <a href="order-details.html" class="hover:text-amber-400">Order Details Modal</a>
+        <a href="checkout.html" class="hover:text-amber-400">Checkout</a>
+        <a href="admin.html" class="hover:text-amber-400">Dashboard</a>
+      </div>
+      <div class="text-[11px] text-[#594e43]">© 2026 Praneetha Hearth & Clay.</div>
+    </div>
+  </footer>
+
+  <!-- STANDALONE JAVASCRIPT -->
+  <script>
+    let activeStatusFilter = 'all';
+
+    let orders = [
+      {
+        orderId: 'PRN-8429',
+        createdAt: 'Oct 06 · 18:42 PM',
+        status: 'simmering',
+        guest: {
+          fullName: 'Binodya Senanayake',
+          email: 'binodya.s@luxurycuisine.lk',
+          phone: '+94 77 982 4510',
+          fulfillmentType: 'delivery',
+          deliveryAddress: { street: '42 Cinnamon Gardens Boulevard, Suite 5B', city: 'Colombo 07' }
+        },
+        dispatchStation: 'Dispatch Bay 02 · Heated Courier Carrier',
+        pricing: { subtotal: 391.00, deliveryFee: 15.00, heritageLevy: 19.55, total: 386.45 },
+        items: [
+          { name: 'The Primordial Hearth Degustation Box', qty: 2, price: 145.00 },
+          { name: 'Wild Cinnamon & Tamarind Infusion', qty: 2, price: 28.00 },
+          { name: 'Artisan Kelani Terracotta Hearth Pot', qty: 1, price: 45.00 }
+        ]
+      },
+      {
+        orderId: 'PRN-7914',
+        createdAt: 'Oct 06 · 18:15 PM',
+        status: 'simmering',
+        guest: {
+          fullName: 'Rohan Wickremasinghe',
+          email: 'rohan.w@ceylontea.com',
+          phone: '+94 71 445 8820',
+          fulfillmentType: 'delivery',
+          deliveryAddress: { street: '88 Ward Place, Penthouse A', city: 'Colombo 07' }
+        },
+        dispatchStation: 'Dispatch Bay 01 · Carrier Pack #07',
+        pricing: { subtotal: 692.00, deliveryFee: 15.00, heritageLevy: 34.60, total: 741.60 },
+        items: [
+          { name: 'The Primordial Hearth Degustation Box', qty: 4, price: 145.00 },
+          { name: 'Wild Cinnamon & Tamarind Infusion', qty: 4, price: 28.00 }
+        ]
+      },
+      {
+        orderId: 'PRN-6582',
+        createdAt: 'Oct 06 · 17:50 PM',
+        status: 'dispatched',
+        guest: {
+          fullName: 'Dr. Ananya Silva',
+          email: 'a.silva@postgrad.cmb.ac.lk',
+          phone: '+94 76 320 1199',
+          fulfillmentType: 'delivery',
+          deliveryAddress: { street: '14/2 Alfred House Gardens', city: 'Colombo 03' }
+        },
+        dispatchStation: 'Dispatch Bay 03 · Express Moto Dispatch',
+        pricing: { subtotal: 290.00, deliveryFee: 15.00, heritageLevy: 14.50, total: 319.50 },
+        items: [
+          { name: 'The Primordial Hearth Degustation Box', qty: 2, price: 145.00 }
+        ]
+      },
+      {
+        orderId: 'PRN-5120',
+        createdAt: 'Oct 06 · 16:30 PM',
+        status: 'delivered',
+        guest: {
+          fullName: 'Marcus Vance & Delegation',
+          email: 'm.vance@vanceholding.sg',
+          phone: '+65 9123 4819',
+          fulfillmentType: 'pickup',
+          deliveryAddress: { street: 'Flagship Hearth Counter Pickup', city: 'Colombo 07' }
+        },
+        dispatchStation: 'Hearthside Counter Handover Bay',
+        pricing: { subtotal: 1308.00, deliveryFee: 0, heritageLevy: 65.40, total: 1242.60 },
+        items: [
+          { name: 'The Primordial Hearth Degustation Box', qty: 6, price: 145.00 },
+          { name: 'Wild Cinnamon & Tamarind Infusion', qty: 6, price: 28.00 }
+        ]
+      }
+    ];
+
+    try {
+      const stored = localStorage.getItem('praneetha_latest_order');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (!orders.some(o => o.orderId === parsed.orderId)) {
+          orders.unshift({
+            orderId: parsed.orderId,
+            createdAt: parsed.dateCreated || 'Just now',
+            status: 'simmering',
+            guest: {
+              fullName: parsed.guestName || 'Customer',
+              email: parsed.guestEmail || '',
+              phone: parsed.guestPhone || '',
+              fulfillmentType: parsed.fulfillmentType || 'delivery',
+              deliveryAddress: { street: parsed.streetAddress || 'Address', city: parsed.cityAddress || 'Colombo' }
+            },
+            dispatchStation: parsed.fulfillmentType === 'pickup' ? 'Hearthside Counter Handover Bay' : 'Dispatch Bay 02 · Heated Courier Carrier',
+            pricing: {
+              subtotal: parseFloat(parsed.pricing.subtotal),
+              deliveryFee: parseFloat(parsed.pricing.deliveryFee || 15),
+              heritageLevy: parseFloat(parsed.pricing.heritageLevy),
+              total: parseFloat(parsed.pricing.total)
+            },
+            items: parsed.items.map(i => ({ name: i.name, qty: i.qty, price: i.price }))
+          });
+        }
+      }
+    } catch(e) {}
+
+    function setStatusFilter(status) {
+      activeStatusFilter = status;
+      document.querySelectorAll('#statusFilterButtons button').forEach(btn => {
+        btn.className = 'status-btn px-3 py-1 rounded text-xs text-[#9c9183] hover:text-white';
+      });
+      event.target.className = 'status-btn active px-3 py-1 rounded text-xs bg-amber-600 text-white font-semibold';
+      renderOrdersTable();
+    }
+
+    function renderOrdersTable() {
+      const tbody = document.getElementById('ordersTableBody');
+      const query = (document.getElementById('searchInput').value || '').toLowerCase();
+      const methodFilter = document.getElementById('fulfillmentFilter').value;
+      tbody.innerHTML = '';
+
+      const filtered = orders.filter(o => {
+        const matchesQuery = 
+          o.orderId.toLowerCase().includes(query) ||
+          o.guest.fullName.toLowerCase().includes(query) ||
+          o.guest.deliveryAddress.street.toLowerCase().includes(query);
+        const matchesStatus = activeStatusFilter === 'all' || o.status === activeStatusFilter;
+        const matchesMethod = methodFilter === 'all' || o.guest.fulfillmentType === methodFilter;
+        return matchesQuery && matchesStatus && matchesMethod;
+      });
+
+      const totalVol = filtered.reduce((sum, o) => sum + o.pricing.total, 0);
+      document.getElementById('filteredSubtotalDisplay').innerText = `$${totalVol.toFixed(2)}`;
+
+      filtered.forEach(order => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-[#1a1511] transition-colors';
+
+        let badgeBg = 'bg-stone-900 text-stone-300';
+        if (order.status === 'received') badgeBg = 'bg-amber-950/70 text-amber-300 border border-amber-800';
+        if (order.status === 'simmering') badgeBg = 'bg-orange-950/70 text-orange-300 border border-orange-800';
+        if (order.status === 'dispatched') badgeBg = 'bg-blue-950/70 text-blue-300 border border-blue-800';
+        if (order.status === 'delivered') badgeBg = 'bg-emerald-950/70 text-emerald-300 border border-emerald-800';
+
+        const dishCount = order.items.reduce((acc, i) => acc + i.qty, 0);
+
+        tr.innerHTML = `
+          <td class="py-3 px-4 font-mono font-bold text-amber-400">
+            <button onclick="openInlineModal('${order.orderId}')" class="hover:underline text-left">#${order.orderId}</button>
+            <span class="block text-[10px] text-[#73675a] font-normal">${order.createdAt}</span>
+          </td>
+          <td class="py-3 px-4">
+            <span class="font-semibold text-white block">${order.guest.fullName}</span>
+            <span class="text-[10px] text-[#8c8172]">${order.guest.phone}</span>
+          </td>
+          <td class="py-3 px-4 uppercase text-[10px] font-mono text-[#d1c6b8]">${order.guest.fulfillmentType}</td>
+          <td class="py-3 px-4 text-xs text-[#cfc5b8] max-w-[200px] truncate">${order.guest.deliveryAddress.street}</td>
+          <td class="py-3 px-4 text-center font-mono font-bold text-amber-400">${dishCount}</td>
+          <td class="py-3 px-4">
+            <select onchange="updateOrderStatus('${order.orderId}', this.value)" class="text-[10px] font-mono px-2 py-0.5 rounded uppercase ${badgeBg} bg-transparent focus:outline-none">
+              <option value="received" ${order.status === 'received' ? 'selected' : ''}>Received</option>
+              <option value="simmering" ${order.status === 'simmering' ? 'selected' : ''}>Simmering</option>
+              <option value="dispatched" ${order.status === 'dispatched' ? 'selected' : ''}>Dispatched</option>
+              <option value="delivered" ${order.status === 'delivered' ? 'selected' : ''}>Delivered</option>
+            </select>
+          </td>
+          <td class="py-3 px-4 text-right font-mono font-bold text-white tabular-nums">$${order.pricing.total.toFixed(2)}</td>
+          <td class="py-3 px-4 text-right">
+            <div class="flex items-center justify-end gap-1.5">
+              <button onclick="openInlineModal('${order.orderId}')" class="px-2.5 py-1 bg-amber-600/20 hover:bg-amber-600/40 text-amber-300 border border-amber-600/40 rounded text-xs font-medium">
+                View Modal
+              </button>
+              <a href="order-details.html?id=${order.orderId}" class="px-2 py-1 bg-[#241a13] hover:bg-[#302319] text-[#b3a89a] hover:text-white rounded text-xs font-medium" title="Open full separate page">
+                Page →
+              </a>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function updateOrderStatus(id, newStatus) {
+      const o = orders.find(x => x.orderId === id);
+      if (o) {
+        o.status = newStatus;
+        renderOrdersTable();
+      }
+    }
+
+    function openInlineModal(orderId) {
+      const order = orders.find(o => o.orderId === orderId);
+      if (!order) return;
+
+      document.getElementById('inlineModalTitle').innerText = `Food Order #${order.orderId}`;
+      document.getElementById('inlineModalSubtitle').innerText = `Placed ${order.createdAt} · ${order.guest.fulfillmentType.toUpperCase()}`;
+      
+      const badge = document.getElementById('inlineModalStatusBadge');
+      badge.innerText = order.status.toUpperCase();
+      badge.className = `text-[10px] font-mono px-2 py-0.5 rounded border ${
+        order.status === 'simmering' ? 'bg-orange-950/60 text-orange-400 border-orange-800' :
+        order.status === 'dispatched' ? 'bg-blue-950/60 text-blue-400 border-blue-800' :
+        order.status === 'delivered' ? 'bg-emerald-950/60 text-emerald-400 border-emerald-800' :
+        'bg-amber-950/60 text-amber-400 border-amber-800'
+      }`;
+
+      document.getElementById('inlineModalFullPageLink').href = `order-details.html?id=${order.orderId}`;
+
+      const body = document.getElementById('inlineModalBody');
+      body.innerHTML = `
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-[#18130f] p-4 rounded-sm border border-[#2b2118] text-xs">
+          <div>
+            <span class="text-[#85786a] block text-[10px]">Customer</span>
+            <span class="font-semibold text-white">${order.guest.fullName}</span>
+            <span class="text-[11px] text-[#a39788] block font-mono">${order.guest.phone}</span>
+          </div>
+          <div>
+            <span class="text-[#85786a] block text-[10px]">Delivery Street</span>
+            <span class="text-[#f5ede3]">${order.guest.deliveryAddress.street}, ${order.guest.deliveryAddress.city}</span>
+          </div>
+          <div class="sm:col-span-2">
+            <span class="text-[#85786a] block text-[10px]">Assigned Dispatch Station</span>
+            <span class="text-amber-400 font-mono">${order.dispatchStation}</span>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-xs uppercase font-mono tracking-wider text-amber-500 mb-2">Ordered Dishes</h4>
+          <div class="divide-y divide-[#221b14] bg-[#18130f] border border-[#2b2118] rounded-sm p-3 text-xs">
+            ${order.items.map(item => `
+              <div class="py-1.5 flex justify-between">
+                <span><strong class="font-mono text-amber-400">${item.qty}x</strong> ${item.name}</span>
+                <span class="font-mono text-white">$${(item.qty * item.price).toFixed(2)}</span>
+              </div>
+            `).join('')}
+            <div class="pt-2 flex justify-between font-bold text-sm text-white border-t border-[#2a2119]">
+              <span>Total Settlement</span>
+              <span class="text-amber-400 font-mono">$${order.pricing.total.toFixed(2)}</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('inlineModalOverlay').classList.remove('hidden');
+    }
+
+    function closeInlineModal() {
+      document.getElementById('inlineModalOverlay').classList.add('hidden');
+    }
+
+    function exportCSV() {
+      const headers = ['Order ID', 'Date', 'Customer', 'Phone', 'Method', 'Total'];
+      const rows = orders.map(o => [
+        o.orderId,
+        o.createdAt,
+        `"${o.guest.fullName}"`,
+        o.guest.phone,
+        o.guest.fulfillmentType,
+        o.pricing.total.toFixed(2)
+      ]);
+      const csv = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+      const a = document.createElement('a');
+      a.href = encodeURI(csv);
+      a.download = `praneetha_order_management_${Date.now()}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    renderOrdersTable();
+  </script>
+</body>
+</html>
